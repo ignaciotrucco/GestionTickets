@@ -1,5 +1,8 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace GestionTicket.Models;
 public class Tarea {
+    [Key]
     public int TareaID {get; set;}
     public TipoTarea TipoTarea {get; set;}
     public int UsuarioID {get; set;}

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GestionTicket.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240902192710_MigracionInicial")]
+    [Migration("20240902202357_MigracionInicial")]
     partial class MigracionInicial
     {
         /// <inheritdoc />
@@ -24,6 +24,60 @@ namespace GestionTicket.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("GestionTicket.Models.SubTarea", b =>
+                {
+                    b.Property<int>("SubTareaID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SubTareaID"));
+
+                    b.Property<string>("Descripcion")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Estado")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TareaID")
+                        .HasColumnType("int");
+
+                    b.HasKey("SubTareaID");
+
+                    b.HasIndex("TareaID");
+
+                    b.ToTable("SubTareas");
+                });
+
+            modelBuilder.Entity("GestionTicket.Models.Tarea", b =>
+                {
+                    b.Property<int>("TareaID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TareaID"));
+
+                    b.Property<string>("DetalleTarea")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Observaciones")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TiempoEstimado")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TipoTarea")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UsuarioID")
+                        .HasColumnType("int");
+
+                    b.HasKey("TareaID");
+
+                    b.ToTable("Tareas");
+                });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
@@ -227,6 +281,17 @@ namespace GestionTicket.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("GestionTicket.Models.SubTarea", b =>
+                {
+                    b.HasOne("GestionTicket.Models.Tarea", "Tarea")
+                        .WithMany("SubTareas")
+                        .HasForeignKey("TareaID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Tarea");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -276,6 +341,11 @@ namespace GestionTicket.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("GestionTicket.Models.Tarea", b =>
+                {
+                    b.Navigation("SubTareas");
                 });
 #pragma warning restore 612, 618
         }

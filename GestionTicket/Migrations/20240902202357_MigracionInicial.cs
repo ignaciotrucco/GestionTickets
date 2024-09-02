@@ -51,6 +51,23 @@ namespace GestionTicket.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Tareas",
+                columns: table => new
+                {
+                    TareaID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TipoTarea = table.Column<int>(type: "int", nullable: false),
+                    UsuarioID = table.Column<int>(type: "int", nullable: false),
+                    TiempoEstimado = table.Column<int>(type: "int", nullable: false),
+                    DetalleTarea = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Observaciones = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Tareas", x => x.TareaID);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -156,6 +173,27 @@ namespace GestionTicket.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "SubTareas",
+                columns: table => new
+                {
+                    SubTareaID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TareaID = table.Column<int>(type: "int", nullable: false),
+                    Descripcion = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Estado = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SubTareas", x => x.SubTareaID);
+                    table.ForeignKey(
+                        name: "FK_SubTareas_Tareas_TareaID",
+                        column: x => x.TareaID,
+                        principalTable: "Tareas",
+                        principalColumn: "TareaID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -194,6 +232,11 @@ namespace GestionTicket.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SubTareas_TareaID",
+                table: "SubTareas",
+                column: "TareaID");
         }
 
         /// <inheritdoc />
@@ -215,10 +258,16 @@ namespace GestionTicket.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "SubTareas");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Tareas");
         }
     }
 }
