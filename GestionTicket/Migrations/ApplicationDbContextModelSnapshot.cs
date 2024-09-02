@@ -55,9 +55,8 @@ namespace GestionTicket.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TareaID"));
 
-                    b.Property<string>("DetalleTarea")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime>("FechaInicio")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Observaciones")
                         .HasColumnType("nvarchar(max)");
@@ -67,6 +66,10 @@ namespace GestionTicket.Migrations
 
                     b.Property<int>("TipoTarea")
                         .HasColumnType("int");
+
+                    b.Property<string>("TituloTarea")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("UsuarioID")
                         .HasColumnType("int");

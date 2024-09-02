@@ -56,10 +56,11 @@ namespace GestionTicket.Migrations
                 {
                     TareaID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    TituloTarea = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     TipoTarea = table.Column<int>(type: "int", nullable: false),
                     UsuarioID = table.Column<int>(type: "int", nullable: false),
+                    FechaInicio = table.Column<DateTime>(type: "datetime2", nullable: false),
                     TiempoEstimado = table.Column<int>(type: "int", nullable: false),
-                    DetalleTarea = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Observaciones = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
