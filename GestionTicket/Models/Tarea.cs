@@ -1,3 +1,4 @@
+namespace GestionTicket.Models;
 public class Tarea {
     public int TareaID {get; set;}
     public TipoTarea TipoTarea {get; set;}
