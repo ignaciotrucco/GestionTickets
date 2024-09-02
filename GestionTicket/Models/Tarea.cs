@@ -6,6 +6,7 @@ public class Tarea {
     public int TiempoEstimado {get; set;}
     public string DetalleTarea {get; set;}
     public string? Observaciones {get; set;}
+    public ICollection<SubTarea> SubTareas {get; set;}
 }
 
 public enum TipoTarea {

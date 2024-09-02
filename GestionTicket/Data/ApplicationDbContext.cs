@@ -11,4 +11,5 @@ public class ApplicationDbContext : IdentityDbContext
     {
     }
     public DbSet<Tarea> Tareas {get; set;}
+    public DbSet<SubTarea> SubTareas {get; set;}
 }
