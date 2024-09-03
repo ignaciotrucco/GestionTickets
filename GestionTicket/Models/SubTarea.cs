@@ -6,12 +6,13 @@ public class SubTarea {
     public int SubTareaID {get; set;}
     public int TareaID {get; set;}
     public string Descripcion {get; set;}
-    public Estado Estado {get; set;}
+    public string Estado {get; set;}
+    public bool Eliminado {get; set;}
     public virtual Tarea Tarea {get; set;}
 }
 
-public enum Estado {
-    Pendiente = 1,
-    EnProgreso,
-    Finalizado,
-}
+// public enum Estado {
+//     Pendiente = 1,
+//     EnProgreso,
+//     Finalizado,
+// }

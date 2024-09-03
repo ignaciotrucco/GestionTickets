@@ -10,6 +10,8 @@ public class ApplicationDbContext : IdentityDbContext
         : base(options)
     {
     }
+    public DbSet<TipoTarea> TipoTareas {get; set;}
+    public DbSet<TipoSistema> TipoSistemas {get; set;}
     public DbSet<Tarea> Tareas {get; set;}
     public DbSet<SubTarea> SubTareas {get; set;}
 }

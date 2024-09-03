@@ -5,19 +5,14 @@ public class Tarea {
     [Key]
     public int TareaID {get; set;}
     public string TituloTarea {get; set;}
-    public TipoTarea TipoTarea {get; set;}
+    public int TipoTareaID {get; set;}
+    public int TipoSistemaID {get; set;}
     public int UsuarioID {get; set;}
     public DateTime FechaInicio {get; set;}
     public int TiempoEstimado {get; set;}
     public string? Observaciones {get; set;}
+    public bool Eliminado {get; set;}
+    public virtual TipoTarea TipoTarea {get; set;}
+    public virtual TipoSistema TipoSistema {get; set;}
     public ICollection<SubTarea> SubTareas {get; set;}
-}
-
-public enum TipoTarea {
-    Desarrollo = 1,
-    Testing,
-    Cobranzas,
-    AtencionYCapacitacion,
-    Migraciones,
-    Implementaciones
 }
