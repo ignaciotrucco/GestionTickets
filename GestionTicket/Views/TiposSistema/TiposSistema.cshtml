@@ -1,0 +1,51 @@
+@{
+    ViewData["Title"] = "Tipos Sistemas";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Tipos de Sistema</h1>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-3">
+        <div class="card">
+            <div class="card-header">
+                <h5>Nuevo</h5>
+            </div>
+            <div class="card-body">
+                <form>
+                    <input type="hidden" id="TipoSistemaID" value="0">
+                    <label class="form-label">Nombre</label>
+                    <input type="text" id="Nombre" class="form-control" style="text-transform: uppercase;">
+                </form>
+                <div class="mt-2">
+                    <button type="button" class="btn btn-primary mt-2" onclick="GuardarSistema()">Guardar</button>
+                    <button type="button" class="btn btn-primary mt-2" onclick="ListadoTipoSistema()">Recargar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-9">
+        <div class="card">
+            <div class="card-header">
+                <h5>Listado</h5>
+            </div>
+            <div class="card-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody-tiposistema"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script src="~/js/tiposSistema-1.0.js"></script>
+}
