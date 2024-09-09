@@ -42,12 +42,13 @@ public class TiposSistemaController : Controller
 
             if (TipoSistemaID == 0)
             {
-                var existeSistema = _context.TipoSistemas.Where(e => e.TipoSistemaID == TipoSistemaID).Count();
+                var existeSistema = _context.TipoSistemas.Where(e => e.Nombre == Nombre).Count();
                 if (existeSistema == 0)
                 {
                     var nuevoSistema = new TipoSistema
                     {
-                        Nombre = Nombre
+                        Nombre = Nombre,
+                        Eliminado = false
                     };
                     _context.Add(nuevoSistema);
                     _context.SaveChanges();
@@ -67,6 +68,7 @@ public class TiposSistemaController : Controller
                     if (existeSistemaEditar == 0)
                     {
                         editarSistema.Nombre = Nombre;
+                        editarSistema.Eliminado = false;
                         _context.SaveChanges();
                         resultado = "Sistema editado exitosamente";
                     }
@@ -86,9 +88,35 @@ public class TiposSistemaController : Controller
         return Json(resultado);
     }
 
+    public JsonResult DesactivarSistema(int TipoSistemaID)
+    {
+        bool eliminado = false;
+
+        var existeTarea = _context.Tareas.Where(e => e.TipoSistemaID == TipoSistemaID).Count();
+
+        if (existeTarea == 0)
+        {
+
+            var desactivarSistema = _context.TipoSistemas.Find(TipoSistemaID);
+            desactivarSistema.Eliminado = true;
+            _context.SaveChanges();
+            eliminado = true;
+        }
+
+        return Json(eliminado);
+    }
+
+    public JsonResult ActivarSistema(int TipoSistemaID)
+    {
+        var activarSistema = _context.TipoSistemas.Find(TipoSistemaID);
+        activarSistema.Eliminado = false;
+        _context.SaveChanges();
+
+        return Json(activarSistema);
+    }
+
     public JsonResult EliminarSistema(int TipoSistemaID)
     {
-
         var eliminarSistema = _context.TipoSistemas.Find(TipoSistemaID);
         _context.Remove(eliminarSistema);
         _context.SaveChanges();
