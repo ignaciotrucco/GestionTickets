@@ -1,4 +1,5 @@
 bin/
 obj/
+fontawesome
 \.vscode
 \GestionTickets\.vscode
