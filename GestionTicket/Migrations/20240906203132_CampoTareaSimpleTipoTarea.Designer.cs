@@ -4,6 +4,7 @@ using GestionTicket.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GestionTicket.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240906203132_CampoTareaSimpleTipoTarea")]
+    partial class CampoTareaSimpleTipoTarea
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -37,8 +40,9 @@ namespace GestionTicket.Migrations
                     b.Property<bool>("Eliminado")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("Estado")
-                        .HasColumnType("bit");
+                    b.Property<string>("Estado")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("TareaID")
                         .HasColumnType("int");
@@ -58,22 +62,19 @@ namespace GestionTicket.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TareaID"));
 
-                    b.Property<bool?>("Eliminado")
+                    b.Property<bool>("Eliminado")
                         .HasColumnType("bit");
 
-                    b.Property<bool?>("Estado")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("FechaInicio")
+                    b.Property<DateTime>("FechaInicio")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Observaciones")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal?>("TiempoEstimado")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<int>("TiempoEstimado")
+                        .HasColumnType("int");
 
-                    b.Property<int?>("TipoSistemaID")
+                    b.Property<int>("TipoSistemaID")
                         .HasColumnType("int");
 
                     b.Property<int>("TipoTareaID")
@@ -83,8 +84,8 @@ namespace GestionTicket.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("UsuarioID")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("UsuarioID")
+                        .HasColumnType("int");
 
                     b.HasKey("TareaID");
 
@@ -355,7 +356,9 @@ namespace GestionTicket.Migrations
                 {
                     b.HasOne("GestionTicket.Models.TipoSistema", "TipoSistema")
                         .WithMany("Tareas")
-                        .HasForeignKey("TipoSistemaID");
+                        .HasForeignKey("TipoSistemaID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("GestionTicket.Models.TipoTarea", "TipoTarea")
                         .WithMany("Tareas")

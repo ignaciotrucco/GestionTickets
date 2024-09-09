@@ -1,0 +1,70 @@
+
+<h2 class="mb-4">Tipo tarea</h2>
+
+<div class="container">
+    <div class="row">
+
+        <div class="col-4">
+            <div>
+                <div>
+                    <div>
+                        <input type="hidden" id="tipoID" value="0"/>
+                        <label for="nombreTipo" class="form-label">Agregar Tipo de Tarea: </label>
+                        <input type="text" class="form-control" id="nombreTipo" placeholder="Nombre:" required>
+                        <span class="spanError animate__animated animate__fadeIn" style="display: none;" id="nombreTipoError"><i class="fa-solid fa-circle-exclamation errorIcon"></i> Ingresar nombre</span>
+                    </div>
+                    <div class="mt-3">
+                        <button type="button" class="btn btn-primary" onclick="crearTipoTarea()">Agregar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-8">
+            <table class="table table-light table-bordered table-striped table-condensed">
+                <thead>
+                    <tr>
+                        <th class="thTabla">Tipo de Tarea</th>
+                        <th style="width: 70px"></th>
+                        <th style="width: 70px"></th>
+                    </tr>
+                </thead>
+                <tbody id="tbody-listaTareas">
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="modalTipoTarea" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="modalTitulo"></h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="row">
+            <input type="hidden" id="tipoTareaEditarID" value="0"/>
+            <div class="mb-3 col-12">
+              <label for="nombreTipoEditar" class="form-label">Nombre tipo de tarea:</label>
+              <input type="text" class="form-control" id="nombreTipoEditar" placeholder="Nombre:" required>
+              <span class="spanError animate__animated animate__fadeIn" style="display: none;" id="nombreTipoErrorEdit"><i class="fa-solid fa-circle-exclamation errorIcon"></i> Ingresar nombre</span>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" onclick="limpiarCampos()" class="btn btn-danger" data-bs-dismiss="modal"><i class="fas fa-solid fa-ban"></i> Cancelar</button>
+        <button type="button" onclick="editarTarea()" class="btn btn-success"><i class="fas fa-solid fa-plus"></i> Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+@section Scripts{
+  <script src="~/js/tipoTarea.js"></script>
+}
