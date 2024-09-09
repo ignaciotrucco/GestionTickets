@@ -20,3 +20,14 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+
+.spanError{
+  color: red;
+  width: 90vw;
+}
+
+.errorIcon{
+  color: red !important;
+  font-size: 15px !important;
+}

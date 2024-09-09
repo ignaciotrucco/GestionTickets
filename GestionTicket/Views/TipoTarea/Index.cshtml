@@ -11,6 +11,7 @@
                         <input type="hidden" id="tipoID" value="0"/>
                         <label for="nombreTipo" class="form-label">Agregar Tipo de Tarea: </label>
                         <input type="text" class="form-control" id="nombreTipo" placeholder="Nombre:" required>
+                        <span class="spanError animate__animated animate__fadeIn" style="display: none;" id="nombreTipoError"><i class="fa-solid fa-circle-exclamation errorIcon"></i> Ingresar nombre</span>
                     </div>
                     <div class="mt-3">
                         <button type="button" class="btn btn-primary" onclick="crearTipoTarea()">Agregar</button>
@@ -51,6 +52,7 @@
             <div class="mb-3 col-12">
               <label for="nombreTipoEditar" class="form-label">Nombre tipo de tarea:</label>
               <input type="text" class="form-control" id="nombreTipoEditar" placeholder="Nombre:" required>
+              <span class="spanError animate__animated animate__fadeIn" style="display: none;" id="nombreTipoErrorEdit"><i class="fa-solid fa-circle-exclamation errorIcon"></i> Ingresar nombre</span>
             </div>
           </div>
         </form>

@@ -23,6 +23,15 @@ public class TipoTareaController : Controller
 
     public JsonResult GuardarTipo(int? tipoTareaID, string Nombre)
     {
+        var nombreExiste = _context.TipoTareas
+            .Where(t => t.Nombre.ToLower() == Nombre.ToLower() && t.Eliminado == false)
+            .ToList();
+
+        if (nombreExiste.Count > 0 )
+        {
+            return Json(new { success = false, prueba = nombreExiste });
+        }
+
         if(tipoTareaID == 0){
             var nuevoTipo = new TipoTarea{
                 Nombre = Nombre
@@ -31,7 +40,7 @@ public class TipoTareaController : Controller
             _context.TipoTareas.Add(nuevoTipo);
             _context.SaveChanges();
 
-            return Json(true);
+            return Json(new { success = true, prueba = nombreExiste });
         }else{
             var tipoEditar = _context.TipoTareas.Where(t => t.TipoTareaID == tipoTareaID).SingleOrDefault();
 
@@ -48,15 +57,14 @@ public class TipoTareaController : Controller
         var lista = _context.TipoTareas.Where( t => t.Eliminado == false).ToList();
 
         if(tipoTareaID == 0){
-            if(lista.Count > 0)
-            {
-                var listaNew = lista.Select(l => new TipoTarea(){
-                    TipoTareaID = l.TipoTareaID,
-                    Nombre = l.Nombre
-                }).ToList();
+            
+            var listaNew = lista.Select(l => new TipoTarea(){
+                TipoTareaID = l.TipoTareaID,
+                Nombre = l.Nombre
+            }).ToList();
 
-                return Json(new{ success = true, lista = listaNew });
-            }
+            return Json(new{ success = true, lista = listaNew });
+            
         }else{
             lista = lista.Where(t => t.TipoTareaID == tipoTareaID).ToList();
 
