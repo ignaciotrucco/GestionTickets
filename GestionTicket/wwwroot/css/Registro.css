@@ -1,0 +1,77 @@
+.Imagen_registro {
+    background-image: url("/lib/Img/Registro_Imagen.jpg");
+
+}
+
+.Registro {
+
+    background-color: #0346fa;
+}
+
+.Imagen_registro {
+    background-image: url("/lib/Img/Registro_Imagen.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.contenedor_imagen {
+    height: 100vh;
+    width: 75%;
+
+}
+
+
+.textoregistro {
+    color: white;
+    margin-top: 2em;
+    font-size: 1.5em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    
+    text-align: center;
+   
+}
+
+.textoregistro:hover {
+    color: #6bf5fe;
+ 
+   
+}
+
+.href_registro {
+    color: white;
+    
+}
+
+.href_registro:hover {
+    color: #6bf5fe;
+    
+}
+
+.titulo_Gestion {
+
+    color: white;
+    margin-top: 1.5em;
+    text-transform: capitalize;
+    letter-spacing: 4px;
+    text-align: center;
+    word-spacing: 8px;
+    text-align: center;
+    transition: transform 0.3s ease, color 0.3s ease; /* Agrega la transición */
+    
+}
+.titulo_Gestion:hover {
+
+ color: #6bf5fe;
+ transform: scale(1.1); /* Agranda el texto un 10% */
+}
+
+.hrclas {
+    width: 6em; /* Ancho del hr */
+    height: 5px; /* Altura ajustada */
+    background-color: white; /* Color de fondo para la línea */
+    border: none; /* Elimina el borde predeterminado */
+    margin: 1em auto; /* Auto en los márgenes izquierdo y derecho lo centra */
+}

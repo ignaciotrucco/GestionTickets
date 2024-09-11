@@ -1,8 +1,6 @@
-html {
-  font-size: 14px;
-}
 
-@media (min-width: 768px) {
+
+/* @media (min-width: 768px) {
   html {
     font-size: 16px;
   }
@@ -19,15 +17,40 @@ html {
 
 body {
   margin-bottom: 60px;
+} */
+
+/* Boton crear tarea inicio */
+
+.botonInicio 
+{
+  height: 5em;
+  width: 10em;
+  box-shadow: 10em;
+}
+
+ /* formulario */
+
+.formulario{
+  text-align: center;
 }
 
 
-.spanError{
-  color: red;
-  width: 90vw;
+
+
+
+
+            /* navbar */
+
+
+
+.AltNav{
+  height: 6em;
 }
 
-.errorIcon{
-  color: red !important;
-  font-size: 15px !important;
+.TextoNavbar
+{
+
+  font-size: 1.6em;
+  text-align: center;
+
 }

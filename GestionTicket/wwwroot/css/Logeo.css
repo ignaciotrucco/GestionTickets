@@ -1,0 +1,72 @@
+
+.logeo{
+    background-color: #0346fa;
+}
+
+.Imagen_Logeo {
+    background-image: url("/lib/Img/R.jpeg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+ 
+}
+
+.contenedor_imagen {
+  
+        height: 100vh;
+        width: 75%;
+  }
+ 
+
+  .textologeo {
+    color: white;
+    margin-top: 2em;
+    font-size: 1.5em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    
+    text-align: center;
+   
+}
+
+.textologeo:hover {
+    color: #6bf5fe;
+ 
+   
+
+
+    
+}
+
+
+.href_logeo {
+    color: white;
+    
+}
+
+.href_logeo:hover {
+    color: #6bf5fe;
+    
+}
+
+
+.titulo_Gestion {
+
+    color: white;
+    margin-top: 1.5em;
+    text-transform: capitalize;
+    letter-spacing: 4px;
+    text-align: center;
+    word-spacing: 8px;
+    text-align: center;
+    transition: transform 0.3s ease, color 0.3s ease; /* Agrega la transición */
+    
+}
+
+.color_recordar{
+    color: white;
+}
+
+
+
