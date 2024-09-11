@@ -18,20 +18,20 @@ function ListadoTipoSistema() {
             LimpiarFormulario();
 
             let tabla = ``;
-            
+
 
             $.each(listadoTipoSistema, function (index, tipoSistema) {
 
                 if (tipoSistema.eliminado) {
                     tabla += `
                     <tr class="bg-danger p-2" style="--bs-bg-opacity: .5;">
-                        <td>${tipoSistema.nombre}</td>
+                        <td><del>${tipoSistema.nombre}</del></td>
                         <td class="text-center">
-                            <button type="button" class="btn btn-secondary btn-sm" onclick="ActivarSistema(${tipoSistema.tipoSistemaID})">
-                                Activar
+                            <button type="button" class="btn btn-outline-dark btn-sm" title="Activar" onclick="ActivarSistema(${tipoSistema.tipoSistemaID})">
+                                <i class="fa-regular fa-eye"></i>
                             </button>
-                            <button type="button" class="btn btn-secondary btn-sm" onclick="ValidarEliminacion(${tipoSistema.tipoSistemaID})">
-                                Eliminar
+                            <button type="button" class="btn btn-outline-dark btn-sm" title="Eliminar" onclick="EliminarSistema(${tipoSistema.tipoSistemaID})">
+                                <i class="fa-solid fa-trash"></i>
                             </button>
                         </td>
                     </tr>
@@ -42,11 +42,11 @@ function ListadoTipoSistema() {
                     <tr>
                         <td>${tipoSistema.nombre}</td>
                         <td class="text-center">
-                            <button type="button" class="btn btn-secondary btn-sm" onclick="EditarSistema(${tipoSistema.tipoSistemaID})">
-                                Editar
+                            <button type="button" class="btn btn-outline-dark btn-sm" title="Editar" onclick="EditarSistema(${tipoSistema.tipoSistemaID})">
+                                <i class="fa-solid fa-pen"></i>
                             </button>
-                            <button type="button" class="btn btn-secondary btn-sm" onclick="DesactivarSistema(${tipoSistema.tipoSistemaID})">
-                                Desactivar
+                            <button type="button" class="btn btn-outline-dark btn-sm" title="Desactivar" onclick="DesactivarSistema(${tipoSistema.tipoSistemaID})">
+                                <i class="fa-solid fa-ban"></i>
                             </button>
                         </td>
                     </tr>
@@ -91,7 +91,7 @@ function GuardarSistema() {
         success: function (resultado) {
 
             if (resultado != "") {
-                alert(resultado);
+                Swal.fire(resultado);
             }
             ListadoTipoSistema();
 
@@ -201,41 +201,45 @@ function ActivarSistema(sistemaID) {
 
 }
 
-function ValidarEliminacion(sistemaID) {
-    var siElimina = confirm("¿Seguro que desea eliminar este registro?");
-    if (siElimina == true) {
-        EliminarSistema(sistemaID)
-    }
-}
-
 function EliminarSistema(sistemaID) {
+    Swal.fire({
+        title: "¿Desea eliminar el tipo de sistema?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Confirmar",
+        cancelButtonText: "Cancelar"
 
-    $.ajax({
-        // la URL para la petición
-        url: '../../TiposSistema/EliminarSistema',
-        // la información a enviar
-        // (también es posible utilizar una cadena de datos)
-        data: { TipoSistemaID: sistemaID },
-        // especifica si será una petición POST o GET
-        type: 'POST',
-        // el tipo de información que se espera de respuesta
-        dataType: 'json',
-        // código a ejecutar si la petición es satisfactoria;
-        // la respuesta es pasada como argumento a la función
-        success: function (eliminarSistema) {
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                // la URL para la petición
+                url: '../../TiposSistema/EliminarSistema',
+                // la información a enviar
+                // (también es posible utilizar una cadena de datos)
+                data: { TipoSistemaID: sistemaID },
+                // especifica si será una petición POST o GET
+                type: 'POST',
+                // el tipo de información que se espera de respuesta
+                dataType: 'json',
+                // código a ejecutar si la petición es satisfactoria;
+                // la respuesta es pasada como argumento a la función
+                success: function (eliminarSistema) {
 
-            ListadoTipoSistema();
+                    ListadoTipoSistema();
 
 
-        },
+                },
 
-        // código a ejecutar si la petición falla;
-        // son pasados como argumentos a la función
-        // el objeto de la petición en crudo y código de estatus de la petición
-        error: function (xhr, status) {
-            console.log('Disculpe, existió un problema al guardar');
-        }
+                // código a ejecutar si la petición falla;
+                // son pasados como argumentos a la función
+                // el objeto de la petición en crudo y código de estatus de la petición
+                error: function (xhr, status) {
+                    console.log('Disculpe, existió un problema al guardar');
+                }
+            });
+        };
     });
-
 }
 

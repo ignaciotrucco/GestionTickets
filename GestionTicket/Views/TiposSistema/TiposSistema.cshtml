@@ -2,15 +2,14 @@
     ViewData["Title"] = "Tipos Sistemas";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Tipos de Sistema</h1>
-</div>
+<h1 class="mb-4">Tipos de Sistema</h1>
 
-<div class="row mt-4">
+
+<div class="row">
     <div class="col-md-3">
         <div class="card">
             <div class="card-header">
-                <h5>Agregar y Editar</h5>
+                <h5><i class="fa-solid fa-file-circle-plus"></i> Agregar y Editar</h5>
             </div>
             <div class="card-body">
                 <form>
@@ -19,8 +18,7 @@
                     <input type="text" id="Nombre" class="form-control" style="text-transform: uppercase;">
                 </form>
                 <div class="d-flex justify-content-between mt-3">
-                    <button type="button" class="btn btn-primary" onclick="GuardarSistema()">Guardar</button>
-                    <button type="button" class="btn btn-primary" onclick="ListadoTipoSistema()">Recargar</button>
+                    <button type="button" class="btn btn-primary" title="Guardar" onclick="GuardarSistema()"><i class="fa-regular fa-floppy-disk"></i>   Guardar</button>
                 </div>
             </div>
         </div>
@@ -28,10 +26,11 @@
     <div class="col-md-9">
         <div class="card">
             <div class="card-header">
-                <h5>Listado</h5>
+                <h5><i class="fa-solid fa-rectangle-list"></i> Listado</h5>
             </div>
             <div class="card-body">
-                <table class="table">
+                <button type="button" class="btn btn-outline-dark btn-sm" title="Recargar" onclick="ListadoTipoSistema()"><i class="fa-solid fa-rotate"></i>   Recargar</button>
+                <table class="table mt-2">
                     <thead>
                         <tr>
                             <th>Nombre</th>
