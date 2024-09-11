@@ -34,23 +34,23 @@ body {
   text-align: center;
 }
 
+.spanError{
+  color: red;
+  width: 90vw;
+}
 
+.errorIcon{
+  color: red !important;
+  font-size: 15px !important;
+}
 
-
-
-
-            /* navbar */
-
-
+/* navbar */
 
 .AltNav{
   height: 6em;
 }
 
-.TextoNavbar
-{
-
+.TextoNavbar{
   font-size: 1.6em;
   text-align: center;
-
 }

@@ -105,8 +105,28 @@ function listaTipoTareas(){
                     `)
 
                 }else{
+                    let tabla = ``;
+
                     $.each(result.lista, function(index, tipo) {
-                        $('#tbody-listaTareas').append(`
+                        console.log(tipo)
+                        if(tipo.eliminado){
+                            tabla += `
+                                <tr class="bg-danger p-2" style="--bs-bg-opacity: .5;">
+                                    <td class="tbody">${tipo.nombre}</td>
+                                    <td class="text-center">
+                                        <button type="button" class="btn btn-success mb-2" onclick="activarTipoTarea(${tipo.tipoTareaID})">
+                                            Activar
+                                        </button>
+                                    </td>
+                                    <td class="text-center">
+                                        <button type="button" class="btn btn-danger mb-2" onclick="eliminarRegistro(${tipo.tipoTareaID})">
+                                            Eliminar
+                                        </button>
+                                    </td>
+                                </tr>
+                            `;
+                        }else{
+                            tabla += `
                             <tr>
                                 <td class="tbody">${tipo.nombre}</td>
                                 <td class="text-center">
@@ -115,13 +135,15 @@ function listaTipoTareas(){
                                     </button>
                                 </td>
                                 <td class="text-center">
-                                    <button type="button" class="btn btn-danger mb-2" onclick="eliminarRegistro(${tipo.tipoTareaID})">
-                                        Eliminar
+                                    <button type="button" class="btn btn-danger mb-2" onclick="desactivarTipoTarea(${tipo.tipoTareaID})">
+                                        Desactivar
                                     </button>
                                 </td>
                             </tr>
-                        `)
+                            `;
+                        }
                     })
+                    document.getElementById("tbody-listaTareas").innerHTML = tabla;
                 }
             }
         },
@@ -134,6 +156,38 @@ function listaTipoTareas(){
             });
         } 
     })
+}
+
+function desactivarTipoTarea(tipoTareaID){
+    $.ajax({
+        url: '../../TipoTarea/DesactivarTarea',
+        data: { tipoTareaID },
+        type: 'PUT',
+        dataType: 'json',
+        success: function (desactivarTarea) {
+            console.log(desactivarTarea)
+            listaTipoTareas();
+        },
+        error: function (xhr, status) {
+            console.log('Disculpe, existió un problema al desactivar el tipo de tarea.');
+        }
+    });
+}
+
+function activarTipoTarea(tipoTareaID){
+    $.ajax({
+        url: '../../TipoTarea/ActivarTarea',
+        data: { tipoTareaID },
+        type: 'PUT',
+        dataType: 'json',
+        success: function (activarTarea) {
+            console.log(activarTarea)
+            listaTipoTareas();
+        },
+        error: function (xhr, status) {
+            console.log('Disculpe, existió un problema al activar el tipo de tarea.');
+        }
+    });
 }
 
 function limpiarCampos(){

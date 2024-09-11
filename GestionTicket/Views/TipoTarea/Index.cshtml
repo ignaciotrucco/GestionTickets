@@ -1,41 +1,51 @@
+@{
+  ViewData["Title"] = "Tipos Tareas";
+}
 
-<h2 class="mb-4">Tipo tarea</h2>
+<div class="text-center">
+    <h2 class="display-4">Tipos de Tareas</h2>
+</div>
 
-<div class="container">
-    <div class="row">
-
-        <div class="col-4">
-            <div>
-                <div>
-                    <div>
-                        <input type="hidden" id="tipoID" value="0"/>
-                        <label for="nombreTipo" class="form-label">Agregar Tipo de Tarea: </label>
-                        <input type="text" class="form-control" id="nombreTipo" placeholder="Nombre:" required>
-                        <span class="spanError animate__animated animate__fadeIn" style="display: none;" id="nombreTipoError"><i class="fa-solid fa-circle-exclamation errorIcon"></i> Ingresar nombre</span>
-                    </div>
-                    <div class="mt-3">
-                        <button type="button" class="btn btn-primary" onclick="crearTipoTarea()">Agregar</button>
-                    </div>
+<div class="row mt-4">
+    <div class="col-md-3">
+        <div class="card">
+            <div class="card-header">
+                <h5>Agregar tipo de tarea</h5>
+            </div>
+            <div class="card-body">
+                <form>
+                  <input type="hidden" id="tipoID" value="0"/>
+                  <input type="text" class="form-control" id="nombreTipo" placeholder="Nombre:" required>
+                  <span class="spanError animate__animated animate__fadeIn" style="display: none;" id="nombreTipoError"><i class="fa-solid fa-circle-exclamation errorIcon"></i> Ingresar nombre</span>
+                </form>
+                <div class="d-flex justify-content-between mt-3">
+                    <button type="button" class="btn btn-primary" onclick="crearTipoTarea()">Guardar</button>
+                    <button type="button" class="btn btn-primary" onclick="listaTipoTareas()">Recargar</button>
                 </div>
             </div>
         </div>
-
-
-        <div class="col-8">
-            <table class="table table-light table-bordered table-striped table-condensed">
-                <thead>
-                    <tr>
+    </div>
+    <div class="col-md-9">
+        <div class="card">
+            <div class="card-header">
+                <h5>Listado</h5>
+            </div>
+            <div class="card-body">
+                <table class="table">
+                    <thead>
+                        <tr>
                         <th class="thTabla">Tipo de Tarea</th>
                         <th style="width: 70px"></th>
                         <th style="width: 70px"></th>
-                    </tr>
-                </thead>
-                <tbody id="tbody-listaTareas">
-                </tbody>
-            </table>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody-listaTareas"></tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>
+
 
 <!-- Modal -->
 <div class="modal fade" id="modalTipoTarea" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

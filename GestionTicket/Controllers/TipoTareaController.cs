@@ -54,12 +54,15 @@ public class TipoTareaController : Controller
 
     public JsonResult ListarTipos(int? tipoTareaID)
     {
-        var lista = _context.TipoTareas.Where( t => t.Eliminado == false).ToList();
+        var lista = _context.TipoTareas.ToList();
+        // var lista = _context.TipoTareas.Where( t => t.Eliminado == false).ToList();
 
         if(tipoTareaID == 0){
             
             var listaNew = lista.Select(l => new TipoTarea(){
                 TipoTareaID = l.TipoTareaID,
+                Eliminado = l.Eliminado,
+                TareaSimple = l.TareaSimple,
                 Nombre = l.Nombre
             }).ToList();
 
@@ -70,23 +73,57 @@ public class TipoTareaController : Controller
 
             var listaNew = lista.Select(l => new TipoTarea(){
                 TipoTareaID = l.TipoTareaID,
+                Eliminado = l.Eliminado,
+                TareaSimple = l.TareaSimple,
                 Nombre = l.Nombre
             }).ToList();
 
             return Json(new{ success = true, lista = listaNew });
         }
 
-        return Json(false);
     }
 
     public JsonResult EliminarTarea(int tipoTareaID){
 
         var tipoTareaElimnar = _context.TipoTareas.Find(tipoTareaID);
 
-        tipoTareaElimnar.Eliminado = true;
+        _context.TipoTareas.Remove(tipoTareaElimnar);
         _context.SaveChanges();
 
         return Json(true);
+    }
+
+    public JsonResult DesactivarTarea(int tipoTareaID)
+    {
+        bool eliminado = false;
+
+        var existeTarea = _context.TipoTareas.Where(t => t.TipoTareaID == tipoTareaID).Count();
+
+        if (existeTarea > 0)
+        {
+            var desactivarTarea = _context.TipoTareas.Find(tipoTareaID);
+            desactivarTarea.Eliminado = true;
+            _context.SaveChanges();
+            eliminado = true;
+        }
+
+        return Json(eliminado);
+    }
+    public JsonResult ActivarTarea(int tipoTareaID)
+    {
+        bool eliminado = true;
+
+        var existeTarea = _context.TipoTareas.Where(t => t.TipoTareaID == tipoTareaID).Count();
+
+        if (existeTarea > 0)
+        {
+            var desactivarTarea = _context.TipoTareas.Find(tipoTareaID);
+            desactivarTarea.Eliminado = false;
+            _context.SaveChanges();
+            eliminado = false;
+        }
+
+        return Json(eliminado);
     }
 
 }
