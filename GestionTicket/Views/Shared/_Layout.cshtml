@@ -15,11 +15,12 @@
     <link rel="stylesheet" href="~/GestionTicket.styles.css" asp-append-version="true" />
 </head>
 
-<body>
+<body class="fondo">
+    
     @if (SignInManager.IsSignedIn(User))
     {
         <header>
-            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow mb-3 AltNav">
+            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-azul border-bottom box-shadow mb-3 AltNav">
                 <div class="container-fluid">
                     <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">GestionTicket</a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse"
@@ -66,5 +67,6 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
+
 
 </html>

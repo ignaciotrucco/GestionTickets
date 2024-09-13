@@ -20,7 +20,22 @@ body {
 } */
 
 /* Boton crear tarea inicio */
+/* .fondo {
 
+  background-color: #f8f9fa; 
+} */
+
+
+
+.fondo {
+  background-image: url("/lib/Img/fondo_png.png");
+  background-size: cover;
+    z-index: -1; 
+}
+.titulo_home{
+  font-size: 4em;
+
+}
 .botonInicio 
 {
   height: 5em;
@@ -53,4 +68,8 @@ body {
   font-size: 1.6em;
   text-align: center;
 
+}
+
+.bg-azul {
+  background-color: #0346fa; /* Azul Bootstrap */
 }
