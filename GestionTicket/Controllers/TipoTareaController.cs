@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using GestionTicket.Models;
 using GestionTicket.Data;
 using Microsoft.Extensions.ObjectPool;
+using Microsoft.EntityFrameworkCore;
 
 namespace GestionTicket.Controllers;
 
@@ -95,12 +96,20 @@ public class TipoTareaController : Controller
 
     public JsonResult EliminarTarea(int tipoTareaID){
 
+        var tareaConTipotarea = _context.Tareas.Include(t => t.TipoTarea).ToList();
         var tipoTareaElimnar = _context.TipoTareas.Find(tipoTareaID);
 
-        _context.TipoTareas.Remove(tipoTareaElimnar);
-        _context.SaveChanges();
+        var existsTarea = tareaConTipotarea.Any(e => e.TipoTareaID == tipoTareaID);
 
-        return Json(true);
+        if(!existsTarea){
+            _context.TipoTareas.Remove(tipoTareaElimnar);
+            _context.SaveChanges();
+
+            return Json(new{success = true});
+
+        }else{
+            return Json(new{success = false});
+        }
     }
 
     public JsonResult DesactivarTarea(int tipoTareaID)
