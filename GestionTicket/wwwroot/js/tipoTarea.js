@@ -70,6 +70,17 @@ function editarTarea(){
         type: 'POST',
         dataType: 'json',
         success: function(result){
+            console.log(result);
+            if(result.success == false){
+                console.log(result.prueba)
+                Swal.fire({
+                    title: 'Ups, existe un inconveniente:',
+                    text: 'Ya existe un tipo de tarea con dicho nombre.',
+                    icon: 'warning',
+                    confirmButtonText: 'Volver a intentarlo'
+                });
+            }
+
             limpiarCampos();
 
             $('#modalTipoTarea').modal("hide");
@@ -108,19 +119,19 @@ function listaTipoTareas(){
                     let tabla = ``;
 
                     $.each(result.lista, function(index, tipo) {
-                        console.log(tipo)
+
                         if(tipo.eliminado){
                             tabla += `
                                 <tr class="bg-danger p-2" style="--bs-bg-opacity: .5;">
                                     <td class="tbody">${tipo.nombre}</td>
                                     <td class="text-center">
-                                        <button type="button" class="btn btn-success mb-2" onclick="activarTipoTarea(${tipo.tipoTareaID})">
-                                            Activar
+                                        <button type="button" class="btn btn-outline-dark btn-sm" title="Activar" onclick="activarTipoTarea(${tipo.tipoTareaID})">
+                                            <i class="fa-regular fa-eye"></i>
                                         </button>
                                     </td>
                                     <td class="text-center">
-                                        <button type="button" class="btn btn-danger mb-2" onclick="eliminarRegistro(${tipo.tipoTareaID})">
-                                            Eliminar
+                                        <button type="button" class="btn btn-outline-dark btn-sm" title="Eliminar" onclick="eliminarRegistro(${tipo.tipoTareaID})">
+                                            <i class="fa-solid fa-trash"></i>
                                         </button>
                                     </td>
                                 </tr>
@@ -130,13 +141,13 @@ function listaTipoTareas(){
                             <tr>
                                 <td class="tbody">${tipo.nombre}</td>
                                 <td class="text-center">
-                                    <button type="button" class="btn btn-success mb-2" onclick="abrirModalEditar(${tipo.tipoTareaID})">
-                                        Editar
+                                    <button type="button" class="btn btn-outline-dark btn-sm" title="Editar" onclick="abrirModalEditar(${tipo.tipoTareaID})">
+                                        <i class="fa-solid fa-pen"></i>
                                     </button>
                                 </td>
                                 <td class="text-center">
-                                    <button type="button" class="btn btn-danger mb-2" onclick="desactivarTipoTarea(${tipo.tipoTareaID})">
-                                        Desactivar
+                                    <button type="button" class="btn btn-outline-dark btn-sm" title="Desactivar" onclick="desactivarTipoTarea(${tipo.tipoTareaID})">
+                                        <i class="fa-solid fa-ban"></i>
                                     </button>
                                 </td>
                             </tr>

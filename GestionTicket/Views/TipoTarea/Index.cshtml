@@ -2,15 +2,13 @@
   ViewData["Title"] = "Tipos Tareas";
 }
 
-<div class="text-center">
-    <h2 class="display-4">Tipos de Tareas</h2>
-</div>
+<h1 class="mb-4">Tipos de Tareas</h1>
 
 <div class="row mt-4">
     <div class="col-md-3">
         <div class="card">
             <div class="card-header">
-                <h5>Agregar tipo de tarea</h5>
+                <h5><i class="fa-solid fa-file-circle-plus"></i> Agregar tipo de tarea</h5>
             </div>
             <div class="card-body">
                 <form>
@@ -19,8 +17,7 @@
                   <span class="spanError animate__animated animate__fadeIn" style="display: none;" id="nombreTipoError"><i class="fa-solid fa-circle-exclamation errorIcon"></i> Ingresar nombre</span>
                 </form>
                 <div class="d-flex justify-content-between mt-3">
-                    <button type="button" class="btn btn-primary" onclick="crearTipoTarea()">Guardar</button>
-                    <button type="button" class="btn btn-primary" onclick="listaTipoTareas()">Recargar</button>
+                    <button type="button" class="btn btn-primary" onclick="crearTipoTarea()"><i class="fa-regular fa-floppy-disk"></i> Guardar</button>
                 </div>
             </div>
         </div>
@@ -28,19 +25,20 @@
     <div class="col-md-9">
         <div class="card">
             <div class="card-header">
-                <h5>Listado</h5>
+                <h5><i class="fa-solid fa-rectangle-list"></i> Listado</h5>
             </div>
             <div class="card-body">
-                <table class="table">
-                    <thead>
-                        <tr>
-                        <th class="thTabla">Tipo de Tarea</th>
-                        <th style="width: 70px"></th>
-                        <th style="width: 70px"></th>
-                        </tr>
-                    </thead>
-                    <tbody id="tbody-listaTareas"></tbody>
-                </table>
+              <button type="button" class="btn btn-outline-dark btn-sm mb-3" onclick="listaTipoTareas()"><i class="fa-solid fa-rotate"></i> Recargar</button>
+              <table class="table">
+                  <thead>
+                      <tr>
+                      <th class="thTabla">Tipo de Tarea</th>
+                      <th style="width: 70px"></th>
+                      <th style="width: 70px"></th>
+                      </tr>
+                  </thead>
+                  <tbody id="tbody-listaTareas"></tbody>
+              </table>
             </div>
         </div>
     </div>
