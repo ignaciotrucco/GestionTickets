@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - GestionTicket</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/fontawesome/css/all.min.css" />
+    <link rel="stylesheet" href="~/lib/fontawesome/css/all.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/Registro.css" asp-append-version="true" />
   <link rel="stylesheet" href="~/css/Logeo.css" asp-append-version="true" />
@@ -33,13 +33,13 @@
                     <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                         <ul class="navbar-nav flex-grow-1">
                             <li class="nav-item TextoNavbar">
-                                <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index">Inicio</a>
-                            </li>
-                            <li class="nav-item dropdown TextoNavbar">
-                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Cargas
+                                <a class="nav-link text-white Boton_nav" asp-area="" asp-controller="Home" asp-action="Index"><i class="fa-solid fa-file-circle-plus"></i>Crear Tarea</a>
+                            </li> 
+                            <li class="nav-item dropdown TextoNavbar menu_Desplegable ">
+                                <a class="nav-link text-white " href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                  <i class="fa-regular fa-square-plus"></i> Cargas
                                 </a>
-                                <ul class="dropdown-menu">
+                                <ul class="dropdown-menu  ">
                                     <li><a class="dropdown-item" asp-controller="TiposSistema" asp-action="TiposSistema">Tipo sistema</a></li>
                                     <li><a class="dropdown-item" asp-controller="TipoTarea" asp-action="Index">Tipo Tarea</a></li>
                                 </ul>
