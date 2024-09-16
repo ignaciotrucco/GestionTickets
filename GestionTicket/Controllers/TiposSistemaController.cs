@@ -90,20 +90,12 @@ public class TiposSistemaController : Controller
 
     public JsonResult DesactivarSistema(int TipoSistemaID)
     {
-        bool eliminado = false;
+        var desactivarSistema = _context.TipoSistemas.Find(TipoSistemaID);
+        desactivarSistema.Eliminado = true;
+        _context.SaveChanges();
 
-        var existeTarea = _context.Tareas.Where(e => e.TipoSistemaID == TipoSistemaID).Count();
 
-        if (existeTarea == 0)
-        {
-
-            var desactivarSistema = _context.TipoSistemas.Find(TipoSistemaID);
-            desactivarSistema.Eliminado = true;
-            _context.SaveChanges();
-            eliminado = true;
-        }
-
-        return Json(eliminado);
+        return Json(desactivarSistema);
     }
 
     public JsonResult ActivarSistema(int TipoSistemaID)
@@ -117,10 +109,19 @@ public class TiposSistemaController : Controller
 
     public JsonResult EliminarSistema(int TipoSistemaID)
     {
-        var eliminarSistema = _context.TipoSistemas.Find(TipoSistemaID);
-        _context.Remove(eliminarSistema);
-        _context.SaveChanges();
+        bool eliminado = false;
 
-        return Json(eliminarSistema);
+        var existeTarea = _context.Tareas.Where(e => e.TipoSistemaID == TipoSistemaID).Count();
+
+        if (existeTarea == 0)
+        {
+            var eliminarSistema = _context.TipoSistemas.Find(TipoSistemaID);
+            _context.Remove(eliminarSistema);
+            _context.SaveChanges();
+            eliminado = true;
+        }
+
+
+        return Json(eliminado);
     }
 }
