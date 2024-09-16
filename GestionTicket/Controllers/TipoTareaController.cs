@@ -1,8 +1,9 @@
-using System.Diagnostics; //Contexto principal
+using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using GestionTicket.Models;
 using GestionTicket.Data;
 using Microsoft.Extensions.ObjectPool;
+using Microsoft.EntityFrameworkCore;
 
 namespace GestionTicket.Controllers;
 
@@ -23,39 +24,50 @@ public class TipoTareaController : Controller
 
     public JsonResult GuardarTipo(int? tipoTareaID, string Nombre)
     {
-        var nombreExiste = _context.TipoTareas
-            .Where(t => t.Nombre.ToLower() == Nombre.ToLower() && t.Eliminado == false)
-            .ToList();
-
-        if (nombreExiste.Count > 0 )
-        {
-            return Json(new { success = false, prueba = nombreExiste });
-        }
+        Nombre = Nombre.ToUpper();
 
         if(tipoTareaID == 0){
-            var nuevoTipo = new TipoTarea{
-                Nombre = Nombre
-            };
 
-            _context.TipoTareas.Add(nuevoTipo);
-            _context.SaveChanges();
+            var nombreExists = _context.TipoTareas.Where(e => e.Nombre == Nombre).Count();
 
-            return Json(new { success = true, prueba = nombreExiste });
+            if(nombreExists == 0){
+
+                var nuevoTipo = new TipoTarea{
+                    Nombre = Nombre
+                };
+
+                _context.TipoTareas.Add(nuevoTipo);
+                _context.SaveChanges();
+
+                return Json(new { success = true });
+
+            }else{
+                return Json(new { success = false });
+            }
+
         }else{
             var tipoEditar = _context.TipoTareas.Where(t => t.TipoTareaID == tipoTareaID).SingleOrDefault();
 
-            tipoEditar.Nombre = Nombre;
+            if(tipoEditar != null){
+                var nombreExists = _context.TipoTareas.Where(e => e.Nombre == Nombre).Count();
 
-            _context.SaveChanges();
+                if(nombreExists == 0){
+                    tipoEditar.Nombre = Nombre;
+                    _context.SaveChanges();
 
-            return Json(true);
+                    return Json(new { success = true });
+                }
+            }else{
+                return Json(new { success = false });
+            }
         }
+
+        return Json(new { success = false });
     }
 
     public JsonResult ListarTipos(int? tipoTareaID)
     {
         var lista = _context.TipoTareas.ToList();
-        // var lista = _context.TipoTareas.Where( t => t.Eliminado == false).ToList();
 
         if(tipoTareaID == 0){
             
@@ -80,17 +92,24 @@ public class TipoTareaController : Controller
 
             return Json(new{ success = true, lista = listaNew });
         }
-
     }
 
     public JsonResult EliminarTarea(int tipoTareaID){
 
+        var tareaConTipotarea = _context.Tareas.Include(t => t.TipoTarea).ToList();
         var tipoTareaElimnar = _context.TipoTareas.Find(tipoTareaID);
 
-        _context.TipoTareas.Remove(tipoTareaElimnar);
-        _context.SaveChanges();
+        var existsTarea = tareaConTipotarea.Any(e => e.TipoTareaID == tipoTareaID);
 
-        return Json(true);
+        if(!existsTarea){
+            _context.TipoTareas.Remove(tipoTareaElimnar);
+            _context.SaveChanges();
+
+            return Json(new{success = true});
+
+        }else{
+            return Json(new{success = false});
+        }
     }
 
     public JsonResult DesactivarTarea(int tipoTareaID)
