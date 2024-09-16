@@ -225,7 +225,15 @@ function EliminarSistema(sistemaID) {
                 dataType: 'json',
                 // código a ejecutar si la petición es satisfactoria;
                 // la respuesta es pasada como argumento a la función
-                success: function (eliminarSistema) {
+                success: function (resultado) {
+
+                    if (!resultado) {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Oops...",
+                            text: "No se puede eliminar porque existen registros asociados",
+                        });
+                    }
 
                     ListadoTipoSistema();
 
