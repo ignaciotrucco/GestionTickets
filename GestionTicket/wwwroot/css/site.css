@@ -32,45 +32,83 @@ body {
   background-size: cover;
     z-index: -1; 
 }
+/* boton */
 .titulo_home{
-  font-size: 4em;
+  font-size: 2em;
+  color: #ffffff;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  box-shadow: 2px 1px 1px #6db1e9;
 
 }
-.botonInicio 
-{
-  height: 5em;
-  width: 10em;
-  box-shadow: 10em;
+
+.titulo_home:hover:hover{
+  color: #008cff;
+  background: #008cff;
+  border:  #008cff;
+  text-shadow: 0 0 2px #ffffff, 0 0 10px #ffffff, 0 0 20px #ffffff;
+
 }
 
- /* formulario */
 
-.formulario{
+/* titulo de la lista */
+
+
+
+.titulo_Listado{
+  font-size: 2.3em;
+  color: #008cff;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   text-align: center;
+  padding-top: 4em;
+
 }
 
-.spanError{
-  color: red;
-  width: 90vw;
-}
 
-.errorIcon{
-  color: red !important;
-  font-size: 15px !important;
-}
+ 
 
 /* navbar */
 
 .AltNav{
-  height: 6em;
+  height: 4em;
 }
 
 .TextoNavbar{
-  font-size: 1.6em;
+  font-size: 1em;
   text-align: center;
+
+  
+
+}
+
+.TextoNavbar:hover:hover{
+  color: #ffffff;
+  background: #008cff;
+  border:  #008cff;
+  text-shadow: 0 0 2px #ffffff, 0 0 10px #ffffff, 0 0 20px #ffffff;
+
+
 
 }
 
 .bg-azul {
-  background-color: #0346fa; /* Azul Bootstrap */
+  background-color: #0346fa; 
+}
+
+
+.menu_Desplegable{
+  color: white;
+}
+
+
+
+
+
+
+
+/* tabla */
+
+
+.th_tabla{
+  background-color: #008cff;
+  color: #008cff;
 }

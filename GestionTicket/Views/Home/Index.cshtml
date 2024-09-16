@@ -2,22 +2,17 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4 titulo_home">Crea tu tarea </h1>
-    
- <div> 
-
 
 
 
 
 
   <!-- Button trigger modal -->
-  <button type="button" class="btn btn-primary botonInicio" data-bs-toggle="modal" data-bs-target="#ModalCrearTarea">
-    Crea tu tarea 
+<div style="text-align: center;">
+  <button type="button" class="btn btn-primary titulo_home" data-bs-toggle="modal" data-bs-target="#ModalCrearTarea">
+    <i class="fa-solid fa-file-circle-plus"></i>Crea tu tarea 
   </button>
-
-  
+</div>
 
 
   <div class="modal fade modal-xl" id="ModalCrearTarea" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
@@ -47,11 +42,39 @@
     </div>
   </form>
 </div>
-
-
-          
-
-
-
-
+ <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary">Crear Nueva Tarea</button>
+      </div>
 </div>
+</div>
+</div>
+</div>
+</div>
+
+
+<div>
+<h2 class="titulo_Listado">Listado de tareas </h2>
+</div>
+
+
+<div class="table" style="overflow: hidden; border-radius: 20px;">
+  <table class="table " style="border-radius: 20px; overflow: hidden; width: 100%;">
+    <thead>
+      <tr>
+        <th class="th_tabla" >  <i class="fa-solid fa-bars"></i></i>Titulo Tarea</th>
+        <th class="th_tabla"> <i class="fa-solid fa-bars"></i>Tipo Tarea</th>
+   
+        <th style="color: green "><i class="fa-regular fa-newspaper"></i>Completar/Modificar</th>
+        <th style="color: red;"><i class="fa-solid fa-trash"></i>Eliminar</th>
+      </tr>
+    </thead>
+    <tbody id="tbody-Localidades"></tbody>
+  </table>
+</div>
+
+
+
+
+
+
