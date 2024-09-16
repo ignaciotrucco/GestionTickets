@@ -8,6 +8,7 @@ function crearTipoTarea(){
 
     var nombreTipo = document.getElementById('nombreTipo').value;
     var tipoID = document.getElementById('tipoID').value;
+    var tareaSimple = document.getElementById('tareaSimple').checked;
 
     var erroresInput = 0;
 
@@ -23,7 +24,7 @@ function crearTipoTarea(){
 
     $.ajax({
         url: '../../TipoTarea/GuardarTipo',
-        data: { Nombre : nombreTipo, tipoTareaID : tipoID },
+        data: { Nombre : nombreTipo, tipoTareaID : tipoID, TareaSimple : tareaSimple },
         type: 'POST',
         dataType: 'json',
         success: function(result){
@@ -51,6 +52,7 @@ function editarTarea(){
 
     var nombreTipo = document.getElementById('nombreTipoEditar').value;
     var tipoID = document.getElementById('tipoTareaEditarID').value;
+    var tareaSimple = document.getElementById('tareaSimpleEditar').checked;
 
     var erroresInput = 0;
 
@@ -66,7 +68,7 @@ function editarTarea(){
 
     $.ajax({
         url: '../../TipoTarea/GuardarTipo',
-        data: { Nombre : nombreTipo, tipoTareaID : tipoID },
+        data: { Nombre : nombreTipo, tipoTareaID : tipoID, TareaSimple : tareaSimple },
         type: 'POST',
         dataType: 'json',
         success: function(result){
@@ -203,6 +205,7 @@ function activarTipoTarea(tipoTareaID){
 function limpiarCampos(){
     document.getElementById('nombreTipo').value = '';
     document.getElementById('tipoID').value = 0;
+    document.getElementById('tareaSimple').checked = false;
 }
 
 function abrirModalEditar(tipoTareaID){

@@ -22,7 +22,7 @@ public class TipoTareaController : Controller
     }
 
 
-    public JsonResult GuardarTipo(int? tipoTareaID, string Nombre)
+    public JsonResult GuardarTipo(int? tipoTareaID, string Nombre, bool TareaSimple)
     {
         Nombre = Nombre.ToUpper();
 
@@ -33,7 +33,8 @@ public class TipoTareaController : Controller
             if(nombreExists == 0){
 
                 var nuevoTipo = new TipoTarea{
-                    Nombre = Nombre
+                    Nombre = Nombre,
+                    TareaSimple = TareaSimple
                 };
 
                 _context.TipoTareas.Add(nuevoTipo);
@@ -49,20 +50,17 @@ public class TipoTareaController : Controller
             var tipoEditar = _context.TipoTareas.Where(t => t.TipoTareaID == tipoTareaID).SingleOrDefault();
 
             if(tipoEditar != null){
-                var nombreExists = _context.TipoTareas.Where(e => e.Nombre == Nombre).Count();
 
-                if(nombreExists == 0){
-                    tipoEditar.Nombre = Nombre;
-                    _context.SaveChanges();
+                tipoEditar.Nombre = Nombre;
+                tipoEditar.TareaSimple = TareaSimple;
+                _context.SaveChanges();
 
-                    return Json(new { success = true });
-                }
+                return Json(new { success = true });
+                
             }else{
                 return Json(new { success = false });
             }
         }
-
-        return Json(new { success = false });
     }
 
     public JsonResult ListarTipos(int? tipoTareaID)
