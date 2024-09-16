@@ -176,7 +176,6 @@ function desactivarTipoTarea(tipoTareaID){
         type: 'PUT',
         dataType: 'json',
         success: function (desactivarTarea) {
-            console.log(desactivarTarea)
             listaTipoTareas();
         },
         error: function (xhr, status) {
@@ -255,6 +254,15 @@ function eliminarRegistro(tipoTareaID){
                 type: 'DELETE',
                 dataType: 'json',
                 success: function(result){
+                    if(result.success == false){
+                        Swal.fire({
+                            title: 'Ups, existe un inconveniente:',
+                            text: 'Disculpe, no puede eliminar el tipo de tarea ya que existen tareas con dicho tipo.',
+                            icon: 'warning',
+                            confirmButtonText: 'Volver a intentarlo'
+                        });
+                    }
+
                     listaTipoTareas();
                 },
                 error: function(kxr,status){
