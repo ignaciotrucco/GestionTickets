@@ -1,64 +1,57 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+  ViewData["Title"] = "Home Page";
 }
 
-
-
-
-
-
-  <!-- Button trigger modal -->
+<!-- Button trigger modal -->
 <div style="text-align: center;">
-  <button type="button" class="btn btn-primary titulo_home " data-bs-toggle="modal" data-bs-target="#ModalCrearTarea">
-    <i class="fa-solid fa-file-circle-plus"></i>Crea Una nueva Tarea 
+  <button type="button" class="btn btn-primary titulo_home" data-bs-toggle="modal" data-bs-target="#ModalCrearTarea">
+    <i class="fa-solid fa-file-circle-plus mx-2"></i> Crea tu tarea 
   </button>
 </div>
 
 
-  <div class="modal fade modal-xl" id="ModalCrearTarea" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-    aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content imagen_modal">
+<div class="modal fade" id="ModalCrearTarea" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog  ">
+    <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title Titulo_modal fs-5" id="staticBackdropLabel"><i class="fa-solid fa-file-circle-plus"></i>Crear la Tarea </h1>
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">Crear nueva tarea </h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-       <div class="modal-body">
-  <form class="formulario d-flex flex-column align-items-center">
-    <div class="col-md-6 mb-3">
-      <label for="validationServer02" class="form-label">Titulo de tarea</label>
-      <input type="text" class="form-control is-valid" id="Titulo" value="" required>
-      <div class="valid-feedback">
-        Titulo del sistema 
-      </div>
-    </div>
 
-    <div class="col-md-6 mb-3">
-      <label for="validationServer01" class="form-label">Estado de la tarea</label>
-      <input type="text" class="form-control is-valid" id="Tarea" value="" required>
-      <div class="valid-feedback">
-        Tipo de tarea
+      <div class="modal-body">
+        <form class="formulario d-flex flex-column align-items-center">
+          <div class="col-md-6 mb-3">
+            <input type="text" id="UserId" value="@ViewBag.UsuarioId" hidden>
+
+            <label for="validationServer02" class="form-label">Titulo de tarea</label>
+            <input type="text" class="form-control" id="TituloTarea" value="" required>
+            @* <div class="valid-feedback">
+              Titulo del sistema 
+            </div> *@
+          </div>
+
+          <div class="col-md-6 mb-3">
+              <label for="validationServer01" class="form-label">Tipo de Tarea</label>
+              @Html.DropDownList("TipoTarea", null, htmlAttributes: new { @class = "form-control" })
+              @* <input type="text" class="form-control is-valid" id="Tarea" value="" required> *@
+              @* <div class="valid-feedback">
+              Tipo de tarea
+              </div> *@
+          </div>
+        </form>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-success" onclick="crearTarea()">Crear</button>
       </div>
     </div>
-  </form>
-</div>
- <div class="modal-footer">
-        <button type="button" class="btn btn-secondary " data-bs-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-primary">Crear Nueva Tarea</button>
-      </div>
-</div>
-</div>
-</div>
-</div>
+  </div>
 </div>
 
 <div>
-<h2 class="titulo_Listado">Listado de tareas </h2>
+  <h2 class="titulo_Listado">Listado de tareas </h2>
 </div>
-
-
-<div class="contenedor_tabla">
-
 
 <div class="table" style="overflow: hidden; border-radius: 20px;">
   <table class="table " style="border-radius: 20px; overflow: hidden; width: 100%;">

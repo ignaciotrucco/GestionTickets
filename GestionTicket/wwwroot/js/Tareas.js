@@ -2,7 +2,6 @@
 
 window.onload = ListadoTarea();
 
-console.log("probando")
 
 function ListadoTarea() {
     $.ajax({
