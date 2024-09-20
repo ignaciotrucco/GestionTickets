@@ -34,7 +34,7 @@ body {
 }
 /* boton */
 .titulo_home{
-  font-size: 2em;
+  font-size: 1.2em;
   color: #ffffff;
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   box-shadow: 2px 1px 1px #6db1e9;
@@ -59,8 +59,18 @@ body {
   color: #008cff;
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   text-align: center;
-  padding-top: 4em;
+  padding-top: 1.5em;
 
+}
+
+.contenedor_tabla{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: em;
+  width: 50em;
+  margin: 0 auto;
+  text-align: center;
 }
 
 
@@ -111,4 +121,20 @@ body {
 .th_tabla{
   background-color: #008cff;
   color: #008cff;
+}
+
+
+
+
+/* modal */
+
+.Titulo_modal
+{
+
+  padding-left: 7em;
+}
+
+
+.imagen_modal{
+  background-image: url("/lib/Img/fondo_png.png");
 }

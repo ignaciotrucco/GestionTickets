@@ -7,16 +7,18 @@ using GestionTicket.Data;
 namespace GestionTicket.Controllers;
 
 [Authorize]
-public class HomeController : Controller
+public class TareaController : Controller
 {
-    private readonly ILogger<HomeController> _logger;
+    private readonly ILogger<TareaController> _logger;
 
-       private ApplicationDbContext _context;
 
-    public HomeController(ILogger<HomeController> logger,ApplicationDbContext context)
+    private ApplicationDbContext _context;
+
+    public TareaController(ILogger<TareaController> logger, ApplicationDbContext context)
     {
         _logger = logger;
-         _context = context;
+
+        _context = context;
     }
 
     public IActionResult Index()
@@ -25,7 +27,9 @@ public class HomeController : Controller
     }
 
 
-        public JsonResult ListadoTarea(int? id)
+    // Mostrar listado tarea
+
+    public JsonResult ListadoTarea(int? id)
     {
 
         List<VistaTarea> tareasMostrar = new List<VistaTarea>();
@@ -70,5 +74,5 @@ public class HomeController : Controller
 
 
 
- 
 }
+
