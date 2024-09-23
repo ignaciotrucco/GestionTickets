@@ -60,13 +60,12 @@ public class HomeController : Controller
             _context.Tareas.Add(nuevaTarea);
             _context.SaveChanges();
 
-            return Json(true);
-        }
-    }
+            // Aquí recuperamos el ID de la tarea recién creada
+            int tareaId = nuevaTarea.TareaID;
 
-    public IActionResult Privacy()
-    {
-        return View();
+            // Preparamos los datos para redirigir a una nueva vista
+            return Json(new { success = true, tareaId });
+        }
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
