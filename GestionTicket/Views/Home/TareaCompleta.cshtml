@@ -7,14 +7,14 @@
             <div class="container">
                 <div class="row">
                     <div class="col">
-                        <input type="hidden" id="TareaID" value="@Model.TipoTareaID">
+                        <input type="hidden" id="TareaID" value="@Model.TareaID">
 
                         <label for="validationServer02" class="form-label">Titulo de tarea</label>
                         <input type="text" class="form-control" id="TituloTarea" value="@Model.TituloTarea" disabled>
                     </div>
                     <div class="col">
                         <label for="validationServer01" class="form-label">Tipo de Tarea</label>
-                        <input type="text" id="TipoTarea" class="form-control" disabled>
+                        <input type="text" id="TipoTarea" class="form-control" value="@Model.TipoTarea.Nombre" disabled>
                     </div>
                     <div class="col">
                         <label for="validationServer01" class="form-label">Tipo de Sistema</label>

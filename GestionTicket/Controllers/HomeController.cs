@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using GestionTicket.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.EntityFrameworkCore;
 
 namespace GestionTicket.Controllers;
 
@@ -47,10 +48,10 @@ public class HomeController : Controller
     public IActionResult TareaCompleta(int id)
     {
         var tipoSistemas = _context.TipoSistemas.ToList();
-        tipoSistemas.Add(new TipoSistema {TipoSistemaID = 0, Nombre = "[Seleccione...]"});
+        tipoSistemas.Add(new TipoSistema { TipoSistemaID = 0, Nombre = "[Seleccione...]" });
         ViewBag.TipoSistema = new SelectList(tipoSistemas.OrderBy(t => t.Nombre), "TipoSistemaID", "Nombre");
 
-        var tarea = _context.Tareas.Find(id);
+        var tarea = _context.Tareas.Include(t => t.TipoTarea).FirstOrDefault(t => t.TareaID == id);
 
         return View(tarea);
     }
