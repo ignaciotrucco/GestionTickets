@@ -11,16 +11,44 @@ function crearTarea(){
     var tipoTarea = document.getElementById('TipoTarea').value;
     var userId = document.getElementById('UserId').value;
 
+    var erroresInput = 0;
+
+    document.getElementById('TituloTareaError').style.display = 'none';
+    if(tituloTarea == ''){
+        document.getElementById('TituloTareaError').style.display = 'block';
+        erroresInput++;
+    }
+
+    document.getElementById('TipoTareaError').style.display = 'none';
+    if(tipoTarea == 0){
+        document.getElementById('TipoTareaError').style.display = 'block';
+        erroresInput++;
+    }
+
+    if(erroresInput > 0){
+        return;
+    }
+
     $.ajax({
         url: '../../Home/CrearTarea',
         data: { tituloTarea, tipoTarea, userId },
         type: 'POST',
         dataType: 'json',
         success: function(result){
-            console.log(result);
+            $('#ModalCrearTarea').modal('hide');
+            vaciarCampos();
         },
         error: function(xrs, status){
             console.log('Ocurrió un error a la hora de almacenar la tarea.')
         }
     })
+}
+
+function vaciarCampos(){
+    document.getElementById('TituloTarea').value = '';
+    document.getElementById('TipoTarea').value = 0;
+    document.getElementById('UserId').value = '';
+
+    document.getElementById('TituloTareaError').style.display = 'none';
+    document.getElementById('TipoTareaError').style.display = 'none';
 }
