@@ -30,7 +30,8 @@ public class HomeController : Controller
     public IActionResult Index()
     {
         var tiposTareas = _context.TipoTareas.Where(t => t.Eliminado == false).ToList();
-        tiposTareas.Add(new TipoTarea{
+        tiposTareas.Add(new TipoTarea
+        {
             TipoTareaID = 0,
             Nombre = "[Seleccione...]",
             TareaSimple = true
@@ -43,10 +44,19 @@ public class HomeController : Controller
         return View();
     }
 
+    public IActionResult TareaCompleta()
+    {
+        var tipoSistemas = _context.TipoSistemas.ToList();
+        tipoSistemas.Add(new TipoSistema {TipoSistemaID = 0, Nombre = "[Seleccione...]"});
+        ViewBag.TipoSistema = new SelectList(tipoSistemas.OrderBy(t => t.Nombre), "TipoSistemaID", "Nombre");
+
+        return View();
+    }
 
 
 
-   public JsonResult ListadoTarea(int? id)
+
+    public JsonResult ListadoTarea(int? id)
     {
 
         List<VistaTarea> tareasMostrar = new List<VistaTarea>();
@@ -61,33 +71,34 @@ public class HomeController : Controller
         {
             var tipoTareas = tipotarea.Where(n => n.TipoTareaID == tarea.TipoTareaID).SingleOrDefault();
             if (tipoTareas != null)
-              
+
+            {
+                VistaTarea nuevaTarea = new VistaTarea
                 {
-                    VistaTarea nuevaTarea = new VistaTarea
-                    {
-                        TareaID = tarea.TareaID,
-                        TipoTareaID = tarea.TipoTareaID,
-                        TituloTarea = tarea.TituloTarea,
-                        Nombretipotarea =tipoTareas.Nombre,
-                        TipoSistemaID = tarea.TipoSistemaID,
-                        UsuarioID = tarea.UsuarioID,
-                        FechaInicio = tarea.FechaInicio,
-                        TiempoEstimado = tarea.TiempoEstimado,
-                        Observaciones = tarea.Observaciones,
-                        Estado = tarea.Estado
-                    };
+                    TareaID = tarea.TareaID,
+                    TipoTareaID = tarea.TipoTareaID,
+                    TituloTarea = tarea.TituloTarea,
+                    Nombretipotarea = tipoTareas.Nombre,
+                    TipoSistemaID = tarea.TipoSistemaID,
+                    UsuarioID = tarea.UsuarioID,
+                    FechaInicio = tarea.FechaInicio,
+                    TiempoEstimado = tarea.TiempoEstimado,
+                    Observaciones = tarea.Observaciones,
+                    Estado = tarea.Estado
+                };
 
-                    tareasMostrar.Add(nuevaTarea);
-                }
+                tareasMostrar.Add(nuevaTarea);
+            }
 
 
-        }return Json(tareasMostrar);
-
+        }
+        return Json(tareasMostrar);
 
 
 
 
-    } 
+
+    }
 
 
 
@@ -95,13 +106,16 @@ public class HomeController : Controller
 
     public JsonResult CrearTarea(string tituloTarea, int tipoTarea, string userId)
     {
-        if(string.IsNullOrEmpty(tituloTarea) || tipoTarea == 0 || string.IsNullOrEmpty(userId))
+        if (string.IsNullOrEmpty(tituloTarea) || tipoTarea == 0 || string.IsNullOrEmpty(userId))
         {
             return Json(new { success = false, text = "Falta completar campos." });
 
-        }else{
+        }
+        else
+        {
 
-            var nuevaTarea = new Tarea {
+            var nuevaTarea = new Tarea
+            {
                 TituloTarea = tituloTarea,
                 TipoTareaID = tipoTarea,
                 UsuarioID = userId
