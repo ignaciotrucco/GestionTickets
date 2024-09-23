@@ -37,6 +37,8 @@ function crearTarea(){
         success: function(result){
             $('#ModalCrearTarea').modal('hide');
             vaciarCampos();
+
+            location.replace(result.urlCompleta);
         },
         error: function(xrs, status){
             console.log('Ocurrió un error a la hora de almacenar la tarea.')

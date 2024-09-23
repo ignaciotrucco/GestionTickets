@@ -44,17 +44,16 @@ public class HomeController : Controller
         return View();
     }
 
-    public IActionResult TareaCompleta()
+    public IActionResult TareaCompleta(int id)
     {
         var tipoSistemas = _context.TipoSistemas.ToList();
         tipoSistemas.Add(new TipoSistema {TipoSistemaID = 0, Nombre = "[Seleccione...]"});
         ViewBag.TipoSistema = new SelectList(tipoSistemas.OrderBy(t => t.Nombre), "TipoSistemaID", "Nombre");
 
-        return View();
+        var tarea = _context.Tareas.Find(id);
+
+        return View(tarea);
     }
-
-
-
 
     public JsonResult ListadoTarea(int? id)
     {
@@ -93,16 +92,7 @@ public class HomeController : Controller
 
         }
         return Json(tareasMostrar);
-
-
-
-
-
     }
-
-
-
-
 
     public JsonResult CrearTarea(string tituloTarea, int tipoTarea, string userId)
     {
@@ -127,8 +117,10 @@ public class HomeController : Controller
             // Aquí recuperamos el ID de la tarea recién creada
             int tareaId = nuevaTarea.TareaID;
 
-            // Preparamos los datos para redirigir a una nueva vista
-            return Json(new { success = true, tareaId });
+            // Creo url para ir a completar la tarea.
+            string urlCompleta = Url.Action("TareaCompleta", "Home", new { id = tareaId });
+
+            return Json(new { success = true, urlCompleta });
         }
     }
 
