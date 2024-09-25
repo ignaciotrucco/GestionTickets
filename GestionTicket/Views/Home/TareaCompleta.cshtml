@@ -8,6 +8,7 @@
                 <div class="row">
                     <div class="col">
                         <input type="hidden" id="TareaID" value="@Model.TareaID">
+                        <input type="hidden" id="UserId" value="@Model.UsuarioID">
 
                         <label for="validationServer02" class="form-label">Titulo de tarea</label>
                         <input type="text" class="form-control" id="TituloTarea" value="@Model.TituloTarea" disabled>
@@ -73,8 +74,12 @@
         </div>
         <div class="row mt-3">
             <div class="col">
-                <button type="button" class="btn btn-primary">Guardar</button>
+                <button type="button" class="btn btn-primary" onclick="EditarTarea()">Guardar</button>
             </div>
         </div>
     </div>
 </div>
+
+@section Scripts {
+    <script src="~/js/Tareas.js"></script>
+}

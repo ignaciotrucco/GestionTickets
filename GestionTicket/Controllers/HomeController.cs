@@ -125,6 +125,29 @@ public class HomeController : Controller
         }
     }
 
+    public JsonResult CompletarTarea(int TareaID, int TipoSistemaID, DateTime FechaInicio, decimal TiempoEstimado, string Observaciones, bool Estado)
+    {
+        string resultado = "";
+
+        if (TareaID != 0)
+        {
+            var editarTarea = _context.Tareas.Where(e => e.TareaID == TareaID).SingleOrDefault();
+            if (editarTarea != null)
+            {
+                editarTarea.TipoSistemaID = TipoSistemaID;
+                editarTarea.FechaInicio = FechaInicio;
+                editarTarea.TiempoEstimado = TiempoEstimado;
+                editarTarea.Observaciones = Observaciones;
+                editarTarea.Estado = Estado;
+                _context.SaveChanges();
+                resultado = "Tarea completada";
+            }
+        }
+
+
+        return Json(resultado);
+    }
+
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {
