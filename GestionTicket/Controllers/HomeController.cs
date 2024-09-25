@@ -140,7 +140,7 @@ public class HomeController : Controller
         }
     }
 
-    public JsonResult CompletarTarea(int TareaID, int TipoSistemaID, DateTime FechaInicio, decimal TiempoEstimado, string Observaciones, bool Estado)
+    public JsonResult CompletarTarea(int TareaID, int TipoSistemaID, DateTime FechaInicio, decimal TiempoEstimado, string Observaciones)
     {
         string resultado = "";
 
@@ -153,7 +153,7 @@ public class HomeController : Controller
                 editarTarea.FechaInicio = FechaInicio;
                 editarTarea.TiempoEstimado = TiempoEstimado;
                 editarTarea.Observaciones = Observaciones;
-                editarTarea.Estado = Estado;
+                editarTarea.Estado = false;
                 _context.SaveChanges();
                 resultado = "Tarea completada";
             }

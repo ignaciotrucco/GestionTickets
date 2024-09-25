@@ -61,20 +61,21 @@ function EditarTarea() {
     let fechaInicio = $("#FechaInicio").val();
     let tiempoEstimado = $("#TiempoEstimado").val();
     let observaciones = $("#Observaciones").val();
-    let estado = document.getElementById("Estado").checked;
     
     $.ajax({
         url: '../../Home/CompletarTarea',
-        data: { TareaID: tareaID, TipoSistemaID: tipoSistema, FechaInicio: fechaInicio, TiempoEstimado: tiempoEstimado, Observaciones: observaciones, Estado: estado },
+        data: { TareaID: tareaID, TipoSistemaID: tipoSistema, FechaInicio: fechaInicio, TiempoEstimado: tiempoEstimado, Observaciones: observaciones },
         type: 'POST',
         dataType: 'json',
         success: function (resultado) {
             if (resultado != "") {
-                alert(resultado);
+                Swal.fire(resultado);
+                //REDIRIGIR A PAGINA DE INICIO
+                setTimeout("location.href = '../../Home/Index';", 1500)
             }
         },
         error: function (xrs, status) {
-            console.log('Ocurrió un error a la hora de completar la tarea.')
+            alert("Ocurrió un error a la hora de completar la tarea.");
         }
     });
 }
