@@ -15,7 +15,7 @@
     <div class="modal-content">
         <div class="modal-header">
           <h1 class="modal-title fs-5" id="staticBackdropLabel">Crear nueva tarea </h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <button type="button" onclick="vaciarCampos()" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
 
       <div class="modal-body">
@@ -28,6 +28,7 @@
             @* <div class="valid-feedback">
               Titulo del sistema 
             </div> *@
+            <span class="spanError animate__animated animate__fadeIn" style="display: none;" id="TituloTareaError"><i class="fa-solid fa-circle-exclamation errorIcon"></i> Ingresar titulo de tarea</span>
           </div>
 
           <div class="col-md-6 mb-3">
@@ -37,12 +38,13 @@
               @* <div class="valid-feedback">
               Tipo de tarea
               </div> *@
+              <span class="spanError animate__animated animate__fadeIn" style="display: none;" id="TipoTareaError"><i class="fa-solid fa-circle-exclamation errorIcon"></i> Seleccionar tipo de tarea</span>
           </div>
         </form>
       </div>
 
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-secondary" onclick="vaciarCampos()" data-bs-dismiss="modal">Cancelar</button>
         <button type="button" class="btn btn-success" onclick="crearTarea()">Crear</button>
       </div>
     </div>
@@ -71,18 +73,3 @@
 
 
 
-
-
-
-<div class="row mb-2 text-bg-primary">
-  <a href="">
-                            <div class="col-md-12">
-                                <div class="card">
-                                
-                                    <div class="card-header text-Dark">
-                                      <strong>Titulo de la tarea:</strong>  ${tarea.tituloTarea}
-                                    </div>
-                                </div>
-                                </a>
-                            </div>
-                        </div>

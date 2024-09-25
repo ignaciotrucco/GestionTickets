@@ -25,13 +25,12 @@ body {
   background-color: #f8f9fa; 
 } */
 
-
-
 .fondo {
   background-image: url("/lib/Img/fondo_png.png");
   background-size: cover;
     z-index: -1; 
 }
+
 /* boton */
 .titulo_home{
   font-size: 1.5em;
@@ -41,18 +40,18 @@ body {
 
 }
 
+.spanError{
+  color: red;
+}
+
 .titulo_home:hover:hover{
   color: #008cff;
   background: #008cff;
   border:  #008cff;
   text-shadow: 0 0 2px #ffffff, 0 0 10px #ffffff, 0 0 20px #ffffff;
-
 }
 
-
 /* titulo de la lista */
-
-
 
 .titulo_Listado{
   font-size: 2.3em;
@@ -78,9 +77,6 @@ body {
 .TextoNavbar{
   font-size: 1em;
   text-align: center;
-
-  
-
 }
 
 .TextoNavbar:hover:hover{
@@ -88,29 +84,17 @@ body {
   background: #008cff;
   border:  #008cff;
   text-shadow: 0 0 2px #ffffff, 0 0 10px #ffffff, 0 0 20px #ffffff;
-
-
-
 }
 
 .bg-azul {
   background-color: #0346fa; 
 }
 
-
 .menu_Desplegable{
   color: white;
 }
 
-
-
-
-
-
-
 /* tabla */
-
-
 .th_tabla{
   background-color: #008cff;
   color: #008cff;

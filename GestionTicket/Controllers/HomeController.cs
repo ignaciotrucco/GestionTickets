@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using GestionTicket.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.EntityFrameworkCore;
 
 namespace GestionTicket.Controllers;
 
@@ -44,12 +45,16 @@ public class HomeController : Controller
         return View();
     }
 
+    public IActionResult TareaCompleta(int id)
+    {
+        var tipoSistemas = _context.TipoSistemas.ToList();
+        tipoSistemas.Add(new TipoSistema { TipoSistemaID = 0, Nombre = "[Seleccione...]" });
+        ViewBag.TipoSistema = new SelectList(tipoSistemas.OrderBy(t => t.Nombre), "TipoSistemaID", "Nombre");
 
+        var tarea = _context.Tareas.Include(t => t.TipoTarea).FirstOrDefault(t => t.TareaID == id);
 
-
-
-
-
+        return View(tarea);
+    }
 
     public JsonResult ListadoTarea(int? id)
     {
@@ -99,14 +104,11 @@ public class HomeController : Controller
 
                 vistaTipoTarea.ListadoDelasTareas.Add(nuevaTarea);
             }
-        }
 
+
+        }
         return Json(tareasMostrar);
     }
-
-
-
-
 
     public JsonResult CrearTarea(string tituloTarea, int tipoTarea, string userId)
     {
@@ -128,13 +130,14 @@ public class HomeController : Controller
             _context.Tareas.Add(nuevaTarea);
             _context.SaveChanges();
 
-            return Json(true);
-        }
-    }
+            // Aquí recuperamos el ID de la tarea recién creada
+            int tareaId = nuevaTarea.TareaID;
 
-    public IActionResult Privacy()
-    {
-        return View();
+            // Creo url para ir a completar la tarea.
+            string urlCompleta = Url.Action("TareaCompleta", "Home", new { id = tareaId });
+
+            return Json(new { success = true, urlCompleta });
+        }
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
