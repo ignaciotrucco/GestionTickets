@@ -62,12 +62,6 @@ body {
 
 }
 
-
-
-
- 
-
-
 /* navbar */
 
 .AltNav{
@@ -101,8 +95,6 @@ body {
 }
 
 
-
-
 /* modal */
 
 .Titulo_modal
@@ -119,4 +111,15 @@ body {
 .Card_tamaño{
   width:  26em;
   height: 15em;
+}
+
+
+.divSubtarea{
+  background-color: rgb(241, 237, 237);
+  margin: 5px 15px;
+  padding: 1px 1px 1px 10px;
+  color: grey;
+  border-radius: 15px;
+  height: 5vh;
+  
 }

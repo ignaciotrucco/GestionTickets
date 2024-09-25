@@ -65,14 +65,6 @@ public class TareaController : Controller
 
 
         }return Json(tareasMostrar);
-
-
-
-
-
     } 
-
-
-
 }
 
