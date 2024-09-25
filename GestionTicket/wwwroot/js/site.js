@@ -61,7 +61,7 @@ function EditarTarea() {
     let fechaInicio = $("#FechaInicio").val();
     let tiempoEstimado = $("#TiempoEstimado").val();
     let observaciones = $("#Observaciones").val();
-    let estado = $("#Estado").val();
+    let estado = document.getElementById("Estado").checked;
     
     $.ajax({
         url: '../../Home/CompletarTarea',
