@@ -63,15 +63,6 @@ body {
 
 }
 
-.contenedor_tabla{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: em;
-  width: 50em;
-  margin: 0 auto;
-  text-align: center;
-}
 
 
 
@@ -139,4 +130,9 @@ body {
 
 .imagen_modal{
   background-image: url("/lib/Img/fondo_png.png");
+}
+
+.Card_tamaño{
+  width:  26em;
+  height: 15em;
 }

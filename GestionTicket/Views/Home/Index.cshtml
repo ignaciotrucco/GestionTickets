@@ -49,23 +49,15 @@
   </div>
 </div>
 
-<div>
-  <h2 class="titulo_Listado">Listado de tareas </h2>
-</div>
 
-<div class="table" style="overflow: hidden; border-radius: 20px;">
-  <table class="table " style="border-radius: 20px; overflow: hidden; width: 100%;">
-    <thead>
-      <tr>
-        <th class="th_tabla" >  <i class="fa-solid fa-bars"></i></i>Titulo Tarea</th>
-        <th class="th_tabla"> <i class="fa-solid fa-bars"></i>Tipo Tarea</th>
-   
-        <th style="color: green "><i class="fa-regular fa-newspaper"></i>Completar/Modificar</th>
-        <th style="color: red;"><i class="fa-solid fa-trash"></i>Eliminar</th>
-      </tr>
-    </thead>
-    <tbody id="tbody-Tareas"></tbody>
-  </table>
+
+<div>
+    <h1 class="text-center my-4">Tareas</h1>
+    <div id="TareaContainer" class="container">
+
+      
+    
+    </div>
 </div>
 
 </div>
@@ -76,3 +68,21 @@
 @section Scripts {
     <script src="~/js/Tareas.js"></script>
 }
+
+
+
+
+
+
+<div class="row mb-2 text-bg-primary">
+  <a href="">
+                            <div class="col-md-12">
+                                <div class="card">
+                                
+                                    <div class="card-header text-Dark">
+                                      <strong>Titulo de la tarea:</strong>  ${tarea.tituloTarea}
+                                    </div>
+                                </div>
+                                </a>
+                            </div>
+                        </div>
