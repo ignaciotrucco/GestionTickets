@@ -15,7 +15,7 @@
                   <input type="hidden" id="tipoID" value="0"/>
 
                   <div>
-                    <input type="text" class="form-control" id="nombreTipo" placeholder="Nombre:" required>
+                    <input type="text" class="form-control" id="nombreTipo" placeholder="Nombre:" style="text-transform: uppercase;" required>
                     <span class="spanError animate__animated animate__fadeIn" style="display: none;" id="nombreTipoError"><i class="fa-solid fa-circle-exclamation errorIcon"></i> Ingresar nombre</span>
                   </div>
 
@@ -45,8 +45,7 @@
                   <thead>
                       <tr>
                       <th class="thTabla">Tipo de Tarea</th>
-                      <th style="width: 70px"></th>
-                      <th style="width: 70px"></th>
+                      <th></th>
                       </tr>
                   </thead>
                   <tbody id="tbody-listaTareas"></tbody>
@@ -71,7 +70,7 @@
             <input type="hidden" id="tipoTareaEditarID" value="0"/>
             <div class="mb-3 col-12">
               <label for="nombreTipoEditar" class="form-label">Nombre tipo de tarea:</label>
-              <input type="text" class="form-control" id="nombreTipoEditar" placeholder="Nombre:" required>
+              <input type="text" class="form-control" id="nombreTipoEditar" placeholder="Nombre:" style="text-transform: uppercase;" required>
               <span class="spanError animate__animated animate__fadeIn" style="display: none;" id="nombreTipoErrorEdit"><i class="fa-solid fa-circle-exclamation errorIcon"></i> Ingresar nombre</span>
             </div>
           </div>
@@ -85,8 +84,9 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" onclick="limpiarCampos()" class="btn btn-danger" data-bs-dismiss="modal"><i class="fas fa-solid fa-ban"></i> Cancelar</button>
-        <button type="button" onclick="editarTarea()" class="btn btn-success"><i class="fas fa-solid fa-plus"></i> Guardar</button>
+        <button type="button" onclick="limpiarCampos()" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" onclick="editarTarea()" class="btn btn-primary"><i
+                        class="fa-regular fa-floppy-disk"></i> Guardar</button>
       </div>
     </div>
   </div>

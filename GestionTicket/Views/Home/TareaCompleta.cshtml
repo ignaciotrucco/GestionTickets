@@ -1,79 +1,88 @@
-<div class="card">
-    <div class="card-header">
-        <h4>Completar Tarea</h4>
-    </div>
-    <div class="card-body">
-        <form>
-            <div class="container">
-                <div class="row">
-                    <div class="col">
-                        <input type="hidden" id="TareaID" value="@Model.TareaID">
-                        <input type="hidden" id="UserId" value="@Model.UsuarioID">
+<div id="vistaCompletarTareas">
+    <div class="card">
+        <div class="card-header">
+            <h4>Completar Tarea</h4>
+        </div>
+        <div class="card-body">
+            <form>
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <input type="hidden" id="TareaID" value="@Model.TareaID">
+                            <input type="hidden" id="UserId" value="@Model.UsuarioID">
+                            <input type="hidden" id="estadoTarea"
+                                value="@Model.TipoTarea.TareaSimple.ToString().ToLower()">
 
-                        <label for="validationServer02" class="form-label">Titulo de tarea</label>
-                        <input type="text" class="form-control" id="TituloTarea" value="@Model.TituloTarea" disabled>
-                    </div>
-                    <div class="col">
-                        <label for="validationServer01" class="form-label">Tipo de Tarea</label>
-                        <input type="text" id="TipoTarea" class="form-control" value="@Model.TipoTarea.Nombre" disabled>
-                    </div>
-                    <div class="col">
-                        <label for="validationServer01" class="form-label">Tipo de Sistema</label>
-                        @Html.DropDownList("TipoSistema", null, htmlAttributes: new { @class = "form-control" })
-                    </div>
-                </div>
-                <div class="row mt-3">
-                    <div class="col-3">
-                        <label for="validationServer02" class="form-label">Fecha de inicio</label>
-                        <input type="date" class="form-control" id="FechaInicio">
-                    </div>
-                    <div class="col-3">
-                        <label for="validationServer02" class="form-label">Hs. Estimadas</label>
-                        <input type="number" class="form-control" id="TiempoEstimado">
-                    </div>
-                    <div class="col">
-                        <label for="validationServer01" class="form-label">Observaciones</label>
-                        <textarea id="Observaciones" class="form-control"></textarea>
-                    </div>
-                </div>
-            </div>
-        </form>
-        <div class="card mt-3">
-            <h5 class="m-3">SubTareas:</h5>
-            <div class="card-body">
-                <form>
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-10">
-                                <input type="hidden" id="SubTareaID">
-
-                                <label for="validationServer01" class="form-label">Descripción</label>
-                                <textarea id="Descripcion" class="form-control"></textarea>
-                            </div>
-                            <div class="col-2">
-                                <input class="form-check-input" type="checkbox" id="EstadoSubtarea">
-                                <label class="form-check-label">
-                                    Finalizada
-                                </label>
-                            </div>
+                            <label for="validationServer02" class="form-label">Titulo de tarea</label>
+                            <input type="text" class="form-control" id="TituloTarea" value="@Model.TituloTarea"
+                                disabled>
                         </div>
-                        <div class="row mt-3">
-                            <div class="col">
-                                <button type="button" class="btn btn-primary">Guardar Subtarea</button>
-                            </div>
+                        <div class="col">
+                            <label for="validationServer01" class="form-label">Tipo de Tarea</label>
+                            <input type="text" id="TipoTarea" class="form-control" value="@Model.TipoTarea.Nombre"
+                                disabled>
+                        </div>
+                        <div class="col">
+                            <label for="validationServer01" class="form-label">Tipo de Sistema</label>
+                            @Html.DropDownList("TipoSistema", null, htmlAttributes: new { @class = "form-control" })
+                            <span id="TipoSistemaError" class="text-danger"></span>
                         </div>
                     </div>
-                </form>
+                    <div class="row mt-3">
+                        <div class="col-3">
+                            <label for="validationServer02" class="form-label">Fecha de inicio</label>
+                            <input type="date" class="form-control" id="FechaInicio">
+                            <span id="FechaInicioError" class="text-danger"></span>
+                        </div>
+                        <div class="col-3">
+                            <label for="validationServer02" class="form-label">Hs. Estimadas</label>
+                            <input type="number" class="form-control" id="TiempoEstimado">
+                            <span id="TiempoEstimadoError" class="text-danger"></span>
+                        </div>
+                        <div class="col">
+                            <label for="validationServer01" class="form-label">Observaciones</label>
+                            <textarea id="Observaciones" class="form-control"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="card mt-3" id="subtarea">
+                <h5 class="m-3">SubTareas:</h5>
+                <div class="card-body">
+                    <form>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-10">
+                                    <input type="hidden" id="SubTareaID">
+
+                                    <label for="validationServer01" class="form-label">Descripción</label>
+                                    <textarea id="Descripcion" class="form-control"></textarea>
+                                </div>
+                                <div class="col-2">
+                                    <input class="form-check-input" type="checkbox" id="EstadoSubtarea">
+                                    <label class="form-check-label">
+                                        Finalizada
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col">
+                                    <button type="button" class="btn btn-primary">Guardar Subtarea</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
-        </div>
-        <div class="row mt-3">
-            <div class="col">
-                <button type="button" class="btn btn-primary" onclick="EditarTarea()">Guardar</button>
+            <div class="row mt-3">
+                <div class="col">
+                    <button type="button" class="btn btn-primary" onclick="EditarTarea()">Guardar</button>
+                </div>
             </div>
         </div>
     </div>
+
+    @section Scripts {
+        <script src="~/js/Tareas.js"></script>
+    }
 </div>
-
-@section Scripts {
-    <script src="~/js/Tareas.js"></script>
-}
