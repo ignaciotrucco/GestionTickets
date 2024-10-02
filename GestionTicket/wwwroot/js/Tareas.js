@@ -43,7 +43,7 @@ function ListadoTarea() {
                         </div>
                     `;
                 });
-                contenidoCards += `</div></div></div></div>`;  
+                contenidoCards += `</div></div></div></div>`;
             });
 
             document.getElementById("TareaContainer").innerHTML = contenidoCards;

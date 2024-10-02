@@ -56,53 +56,70 @@ function vaciarCampos() {
 }
 
 function EditarTarea() {
+    $("#TipoSistemaError").text("");
+    $("#FechaInicioError").text("");
+    $("#TiempoEstimadoError").text("");
+
     let tareaID = $("#TareaID").val();
     let tipoSistema = $("#TipoSistema").val();
     let fechaInicio = $("#FechaInicio").val();
     let tiempoEstimado = $("#TiempoEstimado").val();
     let observaciones = $("#Observaciones").val();
-    
-    $.ajax({
-        url: '../../Home/CompletarTarea',
-        data: { TareaID: tareaID, TipoSistemaID: tipoSistema, FechaInicio: fechaInicio, TiempoEstimado: tiempoEstimado, Observaciones: observaciones },
-        type: 'POST',
-        dataType: 'json',
-        success: function (resultado) {
-            if (resultado != "") {
-                Swal.fire(resultado);
-                //REDIRIGIR A PAGINA DE INICIO
-                setTimeout("location.href = '../../Home/Index';", 1500)
+
+    let guardado = true;
+
+    if (tipoSistema == 0) {
+        $("#TipoSistemaError").text("Debe seleccionar un sistema");
+        guardado = false;
+    }
+    if (fechaInicio == "") {
+        $("#FechaInicioError").text("Debe seleccionar una fecha");
+        guardado = false;
+    }
+    if (tiempoEstimado == "") {
+        $("#TiempoEstimadoError").text("Debe estimar un tiempo");
+        guardado = false;
+    }
+
+    if (guardado) {
+        $.ajax({
+            url: '../../Home/CompletarTarea',
+            data: { TareaID: tareaID, TipoSistemaID: tipoSistema, FechaInicio: fechaInicio, TiempoEstimado: tiempoEstimado, Observaciones: observaciones },
+            type: 'POST',
+            dataType: 'json',
+            success: function (resultado) {
+                if (resultado != "") {
+                    Swal.fire(resultado);
+                    //REDIRIGIR A PAGINA DE INICIO
+                    setTimeout("location.href = '../../Home/Index';", 1500)
+                }
+            },
+            error: function (xrs, status) {
+                alert("Ocurrió un error a la hora de completar la tarea.");
             }
-        },
-        error: function (xrs, status) {
-            alert("Ocurrió un error a la hora de completar la tarea.");
-        }
-    });
+        });
+    }
 }
 
-function GuardarSubtarea(){
-    var subtarea = document.getElementById('Descripcion').value;
-    let tareaID = $("#TareaID").val();
+//OCULTAR SUBTAREAS SI EL TIPO DE TAREA ES SIMPLE
+function mostrarOcultarSubtarea() {
+    let tareaSimple = document.getElementById("estadoTarea").value;
 
-    $.ajax({
-        url: '../../Home/GuardarSubtarea',
-        data: { tareaID, subtarea },
-        type: 'POST',
-        datatype: 'json',
-        success: function(resultado){
-            if(resultado.success){
-                document.getElementById('Descripcion').value = '';
-                console.log(resultado.subtarea);
-                $('#listaSubTareas').append(`
-                    <div class="divSubtarea d-flex align-items-center justify-content-between">
-                        <span> ${resultado.subtarea.descripcion}</span>
-                        <button class="btn"><i class="fa-solid fa-xmark"></i></button>
-                    </div>
-                `)
-            }
-        },
-        error: function(xrs, status){
-            console.log('Se produjo un error a la hora de almacenar la subtarea.');
-        }
-    })
+    console.log("Valor de tareaSimple:", tareaSimple);
+
+    let cardSubtareas = document.getElementById("subtarea");
+
+    if (tareaSimple === "true") {
+        cardSubtareas.style.display = 'none';
+    }
+    else {
+        cardSubtareas.style.display = 'block';
+    }
 }
+
+// Ejecutar la función al cargar el documento
+$(document).ready(function () {
+    if ($("#vistaCompletarTareas").length) {
+        mostrarOcultarSubtarea();
+    }
+});

@@ -9,16 +9,16 @@
     <div class="col-md-3">
         <div class="card">
             <div class="card-header">
-                <h5><i class="fa-solid fa-file-circle-plus"></i> Agregar y Editar</h5>
+                <h5><i class="fa-solid fa-file-circle-plus"></i> Agregar Tipo de Sistema</h5>
             </div>
             <div class="card-body">
                 <form>
                     <input type="hidden" id="TipoSistemaID" value="0">
-                    <label class="form-label">Nombre</label>
-                    <input type="text" id="Nombre" class="form-control" style="text-transform: uppercase;">
+                    <input type="text" id="Nombre" class="form-control" style="text-transform: uppercase;" placeholder="NOMBRE:">
                 </form>
                 <div class="d-flex justify-content-between mt-3">
-                    <button type="button" class="btn btn-primary" title="Guardar" onclick="GuardarSistema()"><i class="fa-regular fa-floppy-disk"></i>   Guardar</button>
+                    <button type="button" class="btn btn-primary" title="Guardar" onclick="GuardarSistema()"><i
+                            class="fa-regular fa-floppy-disk"></i> Guardar</button>
                 </div>
             </div>
         </div>
@@ -29,7 +29,8 @@
                 <h5><i class="fa-solid fa-rectangle-list"></i> Listado</h5>
             </div>
             <div class="card-body">
-                <button type="button" class="btn btn-outline-dark btn-sm" title="Recargar" onclick="ListadoTipoSistema()"><i class="fa-solid fa-rotate"></i>   Recargar</button>
+                <button type="button" class="btn btn-outline-dark btn-sm" title="Recargar"
+                    onclick="ListadoTipoSistema()"><i class="fa-solid fa-rotate"></i> Recargar</button>
                 <table class="table mt-2">
                     <thead>
                         <tr>
@@ -39,6 +40,31 @@
                     </thead>
                     <tbody id="tbody-tiposistema"></tbody>
                 </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="modalSistemas" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Editar Tipo de Sistema</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <input type="hidden" id="TipoSistemaEditarID" value="0">
+                    <label class="form-label">Nombre</label>
+                    <input type="text" id="NombreEditar" class="form-control" style="text-transform: uppercase;">
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                    onclick="LimpiarFormulario()">Cancelar</button>
+                <button type="button" class="btn btn-primary" onclick="EditarSistema()"><i
+                        class="fa-regular fa-floppy-disk"></i> Guardar</button>
             </div>
         </div>
     </div>
