@@ -40,6 +40,9 @@
         </form>
         <div class="card mt-3">
             <h5 class="m-3">SubTareas:</h5>
+
+            <div id="listaSubTareas"></div>
+
             <div class="card-body">
                 <form>
                     <div class="container">
@@ -50,16 +53,10 @@
                                 <label for="validationServer01" class="form-label">Descripción</label>
                                 <textarea id="Descripcion" class="form-control"></textarea>
                             </div>
-                            <div class="col-2">
-                                <input class="form-check-input" type="checkbox" id="EstadoSubtarea">
-                                <label class="form-check-label">
-                                    Finalizada
-                                </label>
-                            </div>
                         </div>
                         <div class="row mt-3">
                             <div class="col">
-                                <button type="button" class="btn btn-primary">Guardar Subtarea</button>
+                                <button type="button" class="btn btn-primary" onclick="GuardarSubtarea()">Guardar Subtarea</button>
                             </div>
                         </div>
                     </div>
