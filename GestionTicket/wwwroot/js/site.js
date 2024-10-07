@@ -123,3 +123,45 @@ $(document).ready(function () {
         mostrarOcultarSubtarea();
     }
 });
+
+    // document.addEventListener('DOMContentLoaded', function () {
+
+    //     const tipoTarea = document.getElementById('TipoTarea').value.toLowerCase();
+
+        
+    //     const tipoSistemaContainer = document.getElementById("tipoSistemaContainer");
+    //     const fechaContainer = document.getElementById("fechaContainer");
+    //     const estimadoContainer = document.getElementById("estimadoContainer");
+    //     const observacionesContainer = document.getElementById("observacionesContainer");
+
+    //     // Función que maneja la visibilidad de los campos
+    //     function ajustarVisibilidad() {
+    //         if (tipoTarea === 'cobranza') {
+    //             estimadoContainer.style.display = 'none';
+    //             tipoSistemaContainer.style.display = 'none';
+    //         }
+    //         else if (tipoTarea === 'atención y capacitación') {
+    //             observacionesContainer.style.display = 'none';
+    //             estimadoContainer.style.display = 'none';
+    //         }
+    //         else if (tipoTarea === 'implementaciones') {
+    //             estimadoContainer.style.display = 'none';
+    //             observacionesContainer.style.display = 'none';
+    //         }
+    //         // } else if (tipoTarea === 'compleja') {
+    //         //     // Mostrar todos los campos si el tipo de tarea es 'compleja'
+    //         //     tipoSistemaContainer.style.display = 'block';
+    //         //     fechaTiempoContainer.style.display = 'block';
+    //         //     observacionesContainer.style.display = 'block';
+    //         // } else {
+    //         //     // Si es otro tipo de tarea, puedes ajustar más condiciones aquí
+    //         //     tipoSistemaContainer.style.display = 'block';
+    //         //     observacionesContainer.style.display = 'block';
+    //         // }
+    //     }
+
+    //     // Ejecutar la función al cargar la página
+    //     ajustarVisibilidad();
+    // });
+
+
