@@ -101,6 +101,32 @@ function EditarTarea() {
     }
 }
 
+function GuardarSubtarea(){
+    var subtarea = document.getElementById('Descripcion').value;
+    let tareaID = $("#TareaID").val();
+    $.ajax({
+        url: '../../Home/GuardarSubtarea',
+        data: { tareaID, subtarea },
+        type: 'POST',
+        datatype: 'json',
+        success: function(resultado){
+            if(resultado.success){
+                document.getElementById('Descripcion').value = '';
+                console.log(resultado.subtarea);
+                $('#listaSubTareas').append(`
+                    <div class="divSubtarea d-flex align-items-center justify-content-between">
+                        <span> ${resultado.subtarea.descripcion}</span>
+                        <button class="btn"><i class="fa-solid fa-xmark"></i></button>
+                    </div>
+                `)
+            }
+        },
+        error: function(xrs, status){
+            console.log('Se produjo un error a la hora de almacenar la subtarea.');
+        }
+    })
+}
+
 //OCULTAR SUBTAREAS SI EL TIPO DE TAREA ES SIMPLE
 function mostrarOcultarSubtarea() {
     let tareaSimple = document.getElementById("estadoTarea").value;

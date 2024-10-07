@@ -115,7 +115,6 @@ public class HomeController : Controller
         if (string.IsNullOrEmpty(tituloTarea) || tipoTarea == 0 || string.IsNullOrEmpty(userId))
         {
             return Json(new { success = false, text = "Falta completar campos." });
-
         }
         else
         {
@@ -167,7 +166,8 @@ public class HomeController : Controller
 
     public JsonResult GuardarSubtarea(int tareaID, string subtarea)
     {
-        if(subtarea != ""){
+        if (subtarea != "")
+        {
             var subtareaObj = new SubTarea
             {
                 TareaID = tareaID,
@@ -197,32 +197,32 @@ public class HomeController : Controller
 
 
 
-public JsonResult DetalleTarea(int tareaId)
-{
-
-    // primero creamo el listado que comienza en 0
-
-    List<VistaDetalleTarea> detalleTareasMostrar = new List<VistaDetalleTarea>();
-
-    // Obtenemos las tareas filtradas por el id 
-    var tareas = _context.Tareas.Where(t => t.TareaID == tareaId).ToList();
-
-
-    // Obtenemos todos los tipos de tareas, subtareas y tipos de sistemas
-    var tipotarea = _context.TipoTareas.ToList();
-    var subTareas = _context.SubTareas.ToList();
-    var tipoSistemas = _context.TipoSistemas.ToList();
-
-
-    foreach (var detalletarea in tareas)
+    public JsonResult DetalleTarea(int tareaId)
     {
-       
-        var tipoTarea = tipotarea.SingleOrDefault(n => n.TipoTareaID == detalletarea.TipoTareaID);
-        var subtareas = subTareas.Where(s => s.TareaID == detalletarea.TareaID).ToList();
-        var tiposistemas = tipoSistemas.SingleOrDefault(t => t.TipoSistemaID == detalletarea.TipoSistemaID);
 
-   
-       
+        // primero creamo el listado que comienza en 0
+
+        List<VistaDetalleTarea> detalleTareasMostrar = new List<VistaDetalleTarea>();
+
+        // Obtenemos las tareas filtradas por el id 
+        var tareas = _context.Tareas.Where(t => t.TareaID == tareaId).ToList();
+
+
+        // Obtenemos todos los tipos de tareas, subtareas y tipos de sistemas
+        var tipotarea = _context.TipoTareas.ToList();
+        var subTareas = _context.SubTareas.ToList();
+        var tipoSistemas = _context.TipoSistemas.ToList();
+
+
+        foreach (var detalletarea in tareas)
+        {
+
+            var tipoTarea = tipotarea.SingleOrDefault(n => n.TipoTareaID == detalletarea.TipoTareaID);
+            var subtareas = subTareas.Where(s => s.TareaID == detalletarea.TareaID).ToList();
+            var tiposistemas = tipoSistemas.SingleOrDefault(t => t.TipoSistemaID == detalletarea.TipoSistemaID);
+
+
+
             var nuevoDetalleTarea = new VistaDetalleTarea
             {
                 TareaID = detalletarea.TareaID,
@@ -241,14 +241,14 @@ public JsonResult DetalleTarea(int tareaId)
                 // EliminadoSubtarea = subtarea.Eliminado
             };
 
-            
+
             detalleTareasMostrar.Add(nuevoDetalleTarea);
-        
+
+        }
+
+        return Json(detalleTareasMostrar);
     }
 
-    return Json(detalleTareasMostrar);
-}
-
 
 }
 
@@ -260,10 +260,10 @@ public JsonResult DetalleTarea(int tareaId)
 
 
 
- 
 
 
 
 
 
-  
+
+
