@@ -15,6 +15,7 @@ function ListadoTipoSistema() {
         // la respuesta es pasada como argumento a la función
         success: function (listadoTipoSistema) {
 
+            $('#modalSistemas').modal("hide");
             LimpiarFormulario();
 
             let tabla = ``;
@@ -42,7 +43,7 @@ function ListadoTipoSistema() {
                     <tr>
                         <td>${tipoSistema.nombre}</td>
                         <td class="text-center">
-                            <button type="button" class="btn btn-outline-dark btn-sm" title="Editar" onclick="EditarSistema(${tipoSistema.tipoSistemaID})">
+                            <button type="button" class="btn btn-outline-dark btn-sm" title="Editar" onclick="AbrirModalEditar(${tipoSistema.tipoSistemaID})">
                                 <i class="fa-solid fa-pen"></i>
                             </button>
                             <button type="button" class="btn btn-outline-dark btn-sm" title="Desactivar" onclick="DesactivarSistema(${tipoSistema.tipoSistemaID})">
@@ -70,6 +71,8 @@ function ListadoTipoSistema() {
 function LimpiarFormulario() {
     $("#TipoSistemaID").val(0);
     $("#Nombre").val("");
+    $("#TipoSistemaEditarID").val(0);
+    $("#NombreEditar").val("");
 }
 
 function GuardarSistema() {
@@ -108,7 +111,43 @@ function GuardarSistema() {
 
 }
 
-function EditarSistema(sistemaID) {
+function EditarSistema() {
+    let sistemaEditarID = $("#TipoSistemaEditarID").val();
+    let nombreEditar = $("#NombreEditar").val();
+
+    $.ajax({
+        // la URL para la petición
+        url: '../../TiposSistema/GuardarTipoSistema',
+        // la información a enviar
+        // (también es posible utilizar una cadena de datos)
+        data: { TipoSistemaID: sistemaEditarID, Nombre: nombreEditar },
+        // especifica si será una petición POST o GET
+        type: 'POST',
+        // el tipo de información que se espera de respuesta
+        dataType: 'json',
+        // código a ejecutar si la petición es satisfactoria;
+        // la respuesta es pasada como argumento a la función
+        success: function (resultado) {
+
+            if (resultado != "") {
+                Swal.fire(resultado);
+            }
+            ListadoTipoSistema();
+
+
+        },
+
+        // código a ejecutar si la petición falla;
+        // son pasados como argumentos a la función
+        // el objeto de la petición en crudo y código de estatus de la petición
+        error: function (xhr, status) {
+            console.log('Disculpe, existió un problema al guardar');
+        }
+    });
+
+}
+
+function AbrirModalEditar(sistemaID) {
 
     $.ajax({
         // la URL para la petición
@@ -125,8 +164,9 @@ function EditarSistema(sistemaID) {
         success: function (listadoTipoSistema) {
 
             let listadoSistemas = listadoTipoSistema[0]
-            $("#TipoSistemaID").val(sistemaID);
-            $("#Nombre").val(listadoSistemas.nombre);
+            $("#TipoSistemaEditarID").val(sistemaID);
+            $("#NombreEditar").val(listadoSistemas.nombre);
+            $('#modalSistemas').modal("show");
 
         },
 
