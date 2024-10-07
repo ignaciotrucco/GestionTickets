@@ -9,43 +9,50 @@ function ListadoTarea() {
         success: function (tareasMostrar) {
             let contenidoCards = `<div class="row">`;
 
-     
             $.each(tareasMostrar, function (index, tipoTarea) {
+                let collapseId = `collapseTipoTarea${index}`;
+                
                 contenidoCards += `
-                    <div class="col-md-4 mb-4">
-                        <div class="card Card_tamaño">
-                            <div class="card-header text-white bg-primary">
+                    <div class="col-md-4 col-sm-6 mb-4">  
+                        <div class="card Card_tamaño h-100"> 
+                            <div class="card-header text-white bg-primary" data-bs-toggle="collapse" data-bs-target="#${collapseId}" style="cursor: pointer;">
                                 ${tipoTarea.nombretipotarea}
                             </div>
-                            <div class="card-body">
-                                <div class="row">
+                            <div id="${collapseId}" class="collapse" aria-labelledby="heading${index}" data-bs-parent="#accordionTareas">
+                                <div class="card-body">
+                                    <div class="row">
                 `;
-
-          
+            
                 $.each(tipoTarea.listadoDelasTareas, function (index, tarea) {
                     contenidoCards += `
-                    <div class="row mb-2">
-                        <div class="col-md-12">
-                            <div class="card">
-                                <div class="card-header text-dark">
-                                    <strong>Título de la tarea:</strong> ${tarea.tituloTarea}
-                                </div>
-                                <div class="card-body">
-                                    <button class="btn btn-primary" onclick="DetalleTarea(${tarea.tareaID})">
-                                        Ver Detalles
-                                    </button>
-                                </div>
+                    <div class="col-12 mb-2">  
+                        <div class="card">
+                            <div class="d-flex justify-content-between align-items-center p-2 text-dark">
+                                <span>${tarea.tituloTarea}</span>
+                                <button class="btn btn-sm tamaño_boton" onclick="DetalleTarea(${tarea.tareaID})">
+                                    Detalles
+                                </button>
+                            </div>
+                            <div class="card-body">
+                            
                             </div>
                         </div>
-                    </div>
-                    `;
+                    </div>`;
                 });
-
-                contenidoCards += `</div></div></div></div>`;  // Cerrar card y filas
+            
+                contenidoCards += `
+                                    </div>  
+                                </div>  
+                            </div>  
+                        </div>  
+                    </div> 
+                `;
             });
-
-            contenidoCards += `</div>`;  // Cerrar fila principal
-            document.getElementById("TareaContainer").innerHTML = contenidoCards;  // Mostrar el contenido
+            
+            
+            contenidoCards += `</div>`;  
+            document.getElementById("TareaContainer").innerHTML = contenidoCards; 
+            
         },
         error: function () {
             alert('Disculpe, existió un problema al cargar las tareas.');
@@ -88,7 +95,3 @@ function DetalleTarea(tareaId) {
         }
     });
 }
-
-
-
-
