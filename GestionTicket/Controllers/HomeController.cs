@@ -145,4 +145,79 @@ public class HomeController : Controller
     {
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
+
+
+
+
+
+
+public JsonResult DetalleTarea(int tareaId)
+{
+
+    // primero creamo el listado que comienza en 0
+
+    List<VistaDetalleTarea> detalleTareasMostrar = new List<VistaDetalleTarea>();
+
+    // Obtenemos las tareas filtradas por el id 
+    var tareas = _context.Tareas.Where(t => t.TareaID == tareaId).ToList();
+
+
+    // Obtenemos todos los tipos de tareas, subtareas y tipos de sistemas
+    var tipotarea = _context.TipoTareas.ToList();
+    var subTareas = _context.SubTareas.ToList();
+    var tipoSistemas = _context.TipoSistemas.ToList();
+
+
+    foreach (var detalletarea in tareas)
+    {
+       
+        var tipoTarea = tipotarea.SingleOrDefault(n => n.TipoTareaID == detalletarea.TipoTareaID);
+        var subtareas = subTareas.Where(s => s.TareaID == detalletarea.TareaID).ToList();
+        var tiposistemas = tipoSistemas.SingleOrDefault(t => t.TipoSistemaID == detalletarea.TipoSistemaID);
+
+   
+       
+            var nuevoDetalleTarea = new VistaDetalleTarea
+            {
+                TareaID = detalletarea.TareaID,
+                TipoTareaID = detalletarea.TipoTareaID,
+                TituloTarea = detalletarea.TituloTarea,
+                TipoSistemaID = tiposistemas?.TipoSistemaID,
+                Nombretiposistema = tiposistemas?.Nombre,
+                UsuarioID = detalletarea.UsuarioID,
+                // SubTareaID = subtarea.SubTareaID,
+                FechaInicio = detalletarea.FechaInicio,
+                TiempoEstimado = detalletarea.TiempoEstimado,
+                Observaciones = detalletarea.Observaciones,
+                Estado = detalletarea.Estado,
+                Nombretipotarea = tipoTarea?.Nombre,
+                // Descripcion = subtarea.Descripcion,
+                // EliminadoSubtarea = subtarea.Eliminado
+            };
+
+            
+            detalleTareasMostrar.Add(nuevoDetalleTarea);
+        
+    }
+
+    return Json(detalleTareasMostrar);
 }
+
+
+}
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+  
