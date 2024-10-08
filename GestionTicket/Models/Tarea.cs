@@ -40,6 +40,8 @@ public class VistaTarea
     public int? TipoSistemaID { get; set; }
     public string? UsuarioID { get; set; } // el creador de la tarea pre diefinido
     public DateTime? FechaInicio { get; set; }
+    public string? FechaIniciostring { get; set; }
+
     public decimal? TiempoEstimado { get; set; }
     public string? Observaciones { get; set; }
     public bool? Eliminado { get; set; }
@@ -48,4 +50,41 @@ public class VistaTarea
 
 
 }
+
+
+
+public class VistaDetalleTarea
+{
+
+    public int TareaID { get; set; }
+    public string TituloTarea { get; set; }
+
+    public int SubTareaID { get; set; }
+
+    public string Descripcion { get; set; }
+    public bool EstadoSubtarea { get; set; }
+    public bool EliminadoSubtarea { get; set; }
+
+    public int TipoTareaID { get; set; }
+    public string? Nombretipotarea { get; set; }
+    public int? TipoSistemaID { get; set; }
+      public string? Nombretiposistema { get; set; }
+
+
+    public string? UsuarioID { get; set; } // el creador de la tarea pre diefinido
+    public DateTime? FechaInicio { get; set; }
+
+    
+
+    
+    public decimal? TiempoEstimado { get; set; }
+    public string? Observaciones { get; set; }
+    public bool? Eliminado { get; set; }
+    public bool? Estado { get; set; }
+
+
+
+}
+
+
 

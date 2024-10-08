@@ -44,14 +44,17 @@ public class TareaController : Controller
         {
             var tipoTareas = tipotarea.Where(n => n.TipoTareaID == tarea.TipoTareaID).SingleOrDefault();
             if (tipoTareas != null)
-              
+
+            {
+
+                if (tarea.Estado == false)
                 {
                     VistaTarea nuevaTarea = new VistaTarea
                     {
                         TareaID = tarea.TareaID,
                         TipoTareaID = tarea.TipoTareaID,
                         TituloTarea = tarea.TituloTarea,
-                        Nombretipotarea =tipoTareas.Nombre,
+                        Nombretipotarea = tipoTareas.Nombre,
                         TipoSistemaID = tarea.TipoSistemaID,
                         UsuarioID = tarea.UsuarioID,
                         FechaInicio = tarea.FechaInicio,
@@ -62,9 +65,15 @@ public class TareaController : Controller
 
                     tareasMostrar.Add(nuevaTarea);
                 }
+                else
+                {
+                    return Json(new { success = false, text = "No tienes tareas pendientes" });
+                }
+            }
 
 
-        }return Json(tareasMostrar);
-    } 
+        }
+        return Json(tareasMostrar);
+    }
 }
 
