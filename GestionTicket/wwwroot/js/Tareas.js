@@ -29,12 +29,9 @@ function ListadoTarea() {
                         <div class="card">
                             <div class="d-flex justify-content-between align-items-center p-2 text-dark">
                                 <span>${tarea.tituloTarea}</span>
-                                <button class="btn btn-sm tamaño_boton" onclick="DetalleTarea(${tarea.tareaID})">
-                                    Detalles
+                                <button class="btn-sm btn-outline-primary tamaño_boton" onclick="DetalleTarea(${tarea.tareaID})">
+                                    Detalle
                                 </button>
-                            </div>
-                            <div class="card-body">
-                            
                             </div>
                         </div>
                     </div>`;
@@ -72,19 +69,17 @@ function DetalleTarea(tareaId) {
 
             $.each(detalleTareasMostrar, function (index, detalle) {
                 contenido += `
-                <div class="card mb-3" style="width: 18rem;">
+                <div class="card mb-3">
                     <div class="card-body">
-                     <strong> Titulo de la tarea<h5 class="card-title">${detalle.tituloTarea}</h5></strong>  
-                        <strong>Nombre del tipo de sistema   <h6 class="card-subtitle mb-2 text-body-secondary">${detalle.nombretiposistema}</h6></strong>  
-                        <p class="card-text">
-                            Estado: ${detalle.estado}<br>
-                            Fecha de Inicio: ${detalle.fechaInicio}<br>
-                            Tiempo Estimado: ${detalle.tiempoEstimado}<br>
-                            Observaciones: ${detalle.observaciones}
-                        </p>
+                        <h5 class="card-title text-center mb-2">${detalle.tituloTarea}</h5> 
+                        <p><b>Sistema:</b> ${detalle.nombretiposistema || '----'}</p>
+                        <p><b>Fecha de Inicio:</b> ${detalle.fechaIniciostring || '----'}</p>
+                        <p><b>Tiempo Estimado:</b> ${detalle.tiempoEstimado ? detalle.tiempoEstimado + 'hs' : '----'}</p>
+                        <p><b>Observaciones:</b> ${detalle.observaciones || '----'}</p>
                     </div>
                 </div>`;
             });
+            
 
             document.getElementById("Detalle").innerHTML = contenido;
 

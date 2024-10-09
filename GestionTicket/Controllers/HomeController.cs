@@ -112,6 +112,8 @@ public class HomeController : Controller
 
     public JsonResult CrearTarea(string tituloTarea, int tipoTarea, string userId)
     {
+        tituloTarea = tituloTarea.ToUpper();
+
         if (string.IsNullOrEmpty(tituloTarea) || tipoTarea == 0 || string.IsNullOrEmpty(userId))
         {
             return Json(new { success = false, text = "Falta completar campos." });
@@ -233,6 +235,9 @@ public class HomeController : Controller
                 UsuarioID = detalletarea.UsuarioID,
                 // SubTareaID = subtarea.SubTareaID,
                 FechaInicio = detalletarea.FechaInicio,
+                FechaIniciostring = detalletarea.FechaInicio.HasValue
+                ? detalletarea.FechaInicio.Value.ToString("dd/MM/yyyy")
+                : string.Empty,
                 TiempoEstimado = detalletarea.TiempoEstimado,
                 Observaciones = detalletarea.Observaciones,
                 Estado = detalletarea.Estado,

@@ -26,7 +26,8 @@
             <input type="text" id="UserId" value="@ViewBag.UsuarioId" hidden>
 
             <label for="validationServer02" class="form-label">Titulo de tarea</label>
-            <input type="text" class="form-control" id="TituloTarea" value="" style="text-transform: uppercase;" required>
+            <input type="text" class="form-control" id="TituloTarea" value="" style="text-transform: uppercase;"
+              required>
             @* <div class="valid-feedback">
             Titulo del sistema
             </div> *@
@@ -60,59 +61,9 @@
 
 <div>
   <h1 class="text-center my-4">Tareas</h1>
-  <div id="TareaContainer" class="container">
-
-
-
-  </div>
+  <div id="TareaContainer" class="container"></div>
 </div>
-
 </div>
-
-
-
-
-
-@* Modal detalle tarea *@
-
-
-
-
-
-<div class="modal fade" id="ModaldetalleTarea" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-  aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog  ">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="staticBackdropLabel">Crear nueva tarea </h1>
-        <button type="button" onclick="vaciarCampos()" class="btn-close" data-bs-dismiss="modal"
-          aria-label="Close"></button>
-      </div>
-
-      <div class="modal-body">
-        <form class="formulario d-flex flex-column align-items-center">
-          <input type="text" name="TituloTarea" id="TituloTarea">
-          <input type="text" name="NombreTiposistema" id="NombreTiposistema">
-          <input type="text" name="UsuarioID" id="UsuarioID">
-          <input type="text" name="Descripcionsubtarea " id="Descripcion">
-          <input type="text" name="EstadoSubtarea" id="EstadoSubtarea">
-
-
-        </form>
-      </div>
-
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" onclick="vaciarCampos()"
-          data-bs-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-success" onclick="crearTarea()">Crear</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-
-
 
 
 <div class="modal fade" id="DetalleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -122,14 +73,8 @@
         <h1 class="modal-title fs-5" id="exampleModalLabel">Detalles de la Tarea</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-
       <div class="modal-body">
         <div id="Detalle" class="card-container"></div> <!-- Aquí se mostrarán las tarjetas dinámicamente -->
-      </div>
-
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-primary">Guardar cambios</button>
       </div>
     </div>
   </div>
