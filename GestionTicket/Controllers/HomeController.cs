@@ -224,6 +224,11 @@ public class HomeController : Controller
             var tiposistemas = tipoSistemas.SingleOrDefault(t => t.TipoSistemaID == detalletarea.TipoSistemaID);
 
 
+            var vistaSubTareas = subtareas.Select(s => new VistaSubTareas {
+                SubTareaID = s.SubTareaID,
+                Descripcion = s.Descripcion,
+            }).ToList();
+
 
             var nuevoDetalleTarea = new VistaDetalleTarea
             {
@@ -242,6 +247,7 @@ public class HomeController : Controller
                 Observaciones = detalletarea.Observaciones,
                 Estado = detalletarea.Estado,
                 Nombretipotarea = tipoTarea?.Nombre,
+                Subtareas = vistaSubTareas
                 // Descripcion = subtarea.Descripcion,
                 // EliminadoSubtarea = subtarea.Eliminado
             };

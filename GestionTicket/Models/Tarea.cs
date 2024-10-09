@@ -65,6 +65,7 @@ public class VistaDetalleTarea
     public string? Observaciones { get; set; }
     public bool? Eliminado { get; set; }
     public bool? Estado { get; set; }
+    public List<VistaSubTareas>? Subtareas {get; set;}
 }
 
 

@@ -11,7 +11,7 @@ function ListadoTarea() {
 
             $.each(tareasMostrar, function (index, tipoTarea) {
                 let collapseId = `collapseTipoTarea${index}`;
-                
+
                 contenidoCards += `
                     <div class="col-md-4 col-sm-6 mb-4">  
                         <div class="card Card_tamaño h-100"> 
@@ -22,7 +22,7 @@ function ListadoTarea() {
                                 <div class="card-body">
                                     <div class="row">
                 `;
-            
+
                 $.each(tipoTarea.listadoDelasTareas, function (index, tarea) {
                     contenidoCards += `
                     <div class="col-12 mb-2">  
@@ -36,7 +36,7 @@ function ListadoTarea() {
                         </div>
                     </div>`;
                 });
-            
+
                 contenidoCards += `
                                     </div>  
                                 </div>  
@@ -45,11 +45,11 @@ function ListadoTarea() {
                     </div> 
                 `;
             });
-            
-            
-            contenidoCards += `</div>`;  
-            document.getElementById("TareaContainer").innerHTML = contenidoCards; 
-            
+
+
+            contenidoCards += `</div>`;
+            document.getElementById("TareaContainer").innerHTML = contenidoCards;
+
         },
         error: function () {
             alert('Disculpe, existió un problema al cargar las tareas.');
@@ -65,6 +65,7 @@ function DetalleTarea(tareaId) {
         data: { tareaId: tareaId },
         dataType: 'json',
         success: function (detalleTareasMostrar) {
+            console.log(detalleTareasMostrar);
             let contenido = ``;
 
             $.each(detalleTareasMostrar, function (index, detalle) {
@@ -76,10 +77,18 @@ function DetalleTarea(tareaId) {
                         <p><b>Fecha de Inicio:</b> ${detalle.fechaIniciostring || '----'}</p>
                         <p><b>Tiempo Estimado:</b> ${detalle.tiempoEstimado ? detalle.tiempoEstimado + 'hs' : '----'}</p>
                         <p><b>Observaciones:</b> ${detalle.observaciones || '----'}</p>
-                    </div>
-                </div>`;
+                        <h6><b>Sub Tareas:</b></h6>
+                        `;
+
+                $.each(detalle.subtareas, function (index, subtarea) {
+                    contenido += `
+                        <p>${subtarea.descripcion || 'Sin subtareas'}</p>
+                        `;
+                });
+                contenido += `</div>
+                </div>`
             });
-            
+
 
             document.getElementById("Detalle").innerHTML = contenido;
 
