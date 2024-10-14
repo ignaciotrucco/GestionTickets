@@ -23,11 +23,11 @@ body {
   background-color: #f8f9fa; 
 } */
 
-.fondo {
+/* .fondo {
   background-image: url("/lib/Img/fondo_png.png");
   background-size: cover;
   z-index: -1;
-}
+} */
 
 /* boton */
 .titulo_home {
@@ -116,3 +116,34 @@ body {
   color: blue;
   border: 1px solid #0346fa;
 }
+
+
+
+
+/* card media para pantallas moviles desde inicio 300 px */
+
+.Card_tamaño {
+  min-width: 300px; 
+  max-width: 100%; 
+}
+
+@media (max-width: 576px) {
+  .Card_tamaño {
+      width: 100%; 
+      min-width: 300px;
+  }
+
+  .tamaño_boton {
+      font-size: 0.8em; 
+      padding: 5px 10px; 
+  }
+
+  .card-header {
+      font-size: 1em; 
+  }
+
+  .card {
+      margin-bottom: 10px; 
+  }
+}
+

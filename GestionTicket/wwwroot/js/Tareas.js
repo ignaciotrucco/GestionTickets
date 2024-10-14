@@ -1,5 +1,4 @@
 window.onload = ListadoTarea;
-window.onload = ListadoTarea;
 
 function ListadoTarea() {
     $.ajax({
@@ -7,22 +6,21 @@ function ListadoTarea() {
         type: 'POST',
         dataType: 'json',
         success: function (tareasMostrar) {
-            let contenidoCards = `<div class="row">`;
+            let contenidoCards = `<div class="row justify-content-center">`;
 
             $.each(tareasMostrar, function (index, tipoTarea) {
                 let collapseId = `collapseTipoTarea${index}`;
-
                 contenidoCards += `
-                    <div class="col-md-4 col-sm-6 mb-4">  
-                        <div class="card Card_tamaño h-100"> 
-                            <div class="card-header text-white bg-primary" data-bs-toggle="collapse" data-bs-target="#${collapseId}" style="cursor: pointer;">
-                                ${tipoTarea.nombretipotarea}
-                            </div>
-                            <div id="${collapseId}" class="collapse" aria-labelledby="heading${index}" data-bs-parent="#accordionTareas">
-                                <div class="card-body">
-                                    <div class="row">
-                `;
-
+                <div class="col-12 col-sm-6 col-lg-4 mb-3">  
+                    <div class="card Card_tamaño h-100"> 
+                        <div class="card-header text-white bg-primary" data-bs-toggle="collapse" data-bs-target="#${collapseId}" style="cursor: pointer;">
+                            ${tipoTarea.nombretipotarea}
+                        </div>
+                        <div id="${collapseId}" class="collapse" aria-labelledby="heading${index}" data-bs-parent="#accordionTareas">
+                            <div class="card-body">
+                                <div class="row">
+            `;
+            
                 $.each(tipoTarea.listadoDelasTareas, function (index, tarea) {
                     contenidoCards += `
                     <div class="col-12 mb-2">  
@@ -46,7 +44,6 @@ function ListadoTarea() {
                 `;
             });
 
-
             contenidoCards += `</div>`;
             document.getElementById("TareaContainer").innerHTML = contenidoCards;
 
@@ -56,6 +53,8 @@ function ListadoTarea() {
         }
     });
 }
+
+
 
 
 function DetalleTarea(tareaId) {

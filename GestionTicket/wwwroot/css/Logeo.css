@@ -32,10 +32,6 @@
 
 .textologeo:hover {
     color: #6bf5fe;
- 
-   
-
-
     
 }
 
@@ -70,3 +66,43 @@
 
 
 
+
+.logeo {
+    background-color: rgba(3, 70, 250, 0.9); 
+    padding: 2em;
+    border-radius: 10px;
+    
+}
+
+
+
+
+
+@media (max-width: 768px) {
+    .logeo {
+        background-color: rgba(3, 70, 250, 0.9); /* Fondo semitransparente */
+        padding: 2em;
+        border-radius: 10px; 
+        z-index: 1; 
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-49%, -49%);
+    
+    }
+
+    .contenedor_imagen {
+        height: 100vh;
+        width: 100%;
+    }
+
+    .logeo section {
+        text-align: center;
+        margin-top: 2em;
+    }
+
+    .titulo_Gestion {
+        margin-top: 1em;
+    }
+
+}
