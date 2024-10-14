@@ -61,7 +61,7 @@ public class HomeController : Controller
 
         List<VistaTipoTarea> tareasMostrar = new List<VistaTipoTarea>();
 
-        var tareas = _context.Tareas.ToList();
+        var tareas = _context.Tareas.Where(e => e.Estado == false).ToList();
 
         var tipotarea = _context.TipoTareas.ToList();
 
@@ -88,7 +88,7 @@ public class HomeController : Controller
                     tareasMostrar.Add(vistaTipoTarea);
                 }
 
-
+                
                 var nuevaTarea = new VistaTarea
                 {
                     TareaID = tarea.TareaID,

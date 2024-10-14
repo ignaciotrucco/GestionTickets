@@ -62,13 +62,8 @@ body {
 
 /* navbar */
 
-.AltNav {
-  height: 4em;
-}
-
 .TextoNavbar {
   font-size: 1em;
-  text-align: center;
 }
 
 .TextoNavbar:hover:hover {
@@ -76,14 +71,6 @@ body {
   background: #008cff;
   border: #008cff;
   text-shadow: 0 0 2px #ffffff, 0 0 10px #ffffff, 0 0 20px #ffffff;
-}
-
-.bg-azul {
-  background-color: #0346fa;
-}
-
-.menu_Desplegable {
-  color: white;
 }
 
 /* tabla */

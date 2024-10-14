@@ -23,9 +23,9 @@
     @if (SignInManager.IsSignedIn(User))
     {
         <header>
-            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-azul border-bottom box-shadow mb-3 AltNav">
+            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-primary border-bottom box-shadow mb-3 AltNav">
                 <div class="container-fluid">
-                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">GestionTicket</a>
+                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><b>Gestión Tickets</b></a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse"
                             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
@@ -33,16 +33,13 @@
                     <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                         <ul class="navbar-nav flex-grow-1">
                             <li class="nav-item TextoNavbar">
-                                <a class="nav-link text-white Boton_nav" asp-area="" asp-controller="Home" asp-action="Index"><i class="fa-solid fa-file-circle-plus"></i>Crear Tarea</a>
+                                <a class="nav-link text-white Boton_nav" asp-area="" asp-controller="Home" asp-action="Index"><i class="fa-solid fa-list-check"></i>  Tareas</a>
                             </li> 
-                            <li class="nav-item dropdown TextoNavbar menu_Desplegable ">
-                                <a class="nav-link text-white " href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                  <i class="fa-regular fa-square-plus"></i> Cargas
-                                </a>
-                                <ul class="dropdown-menu  ">
-                                    <li><a class="dropdown-item" asp-controller="TiposSistema" asp-action="TiposSistema">Tipo sistema</a></li>
-                                    <li><a class="dropdown-item" asp-controller="TipoTarea" asp-action="Index">Tipo Tarea</a></li>
-                                </ul>
+                            <li class="nav-item TextoNavbar ">
+                                <a class="nav-link text-white Boton_nav" asp-controller="TiposSistema" asp-action="TiposSistema"><i class="fa-solid fa-code"></i>  Sistemas</a>
+                            </li>
+                            <li class="nav-item TextoNavbar ">
+                                <a class="nav-link text-white Boton_nav" asp-controller="TipoTarea" asp-action="Index"><i class="fa-solid fa-bars-progress"></i>  Tipos de Tarea</a>
                             </li>
                         </ul>
                         <partial name="_LoginPartial" />
