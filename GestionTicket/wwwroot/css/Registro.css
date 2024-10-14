@@ -65,13 +65,47 @@
 .titulo_Gestion:hover {
 
  color: #6bf5fe;
- transform: scale(1.1); /* Agranda el texto un 10% */
+ transform: scale(1.1); 
 }
 
 .hrclas {
-    width: 6em; /* Ancho del hr */
-    height: 5px; /* Altura ajustada */
-    background-color: white; /* Color de fondo para la línea */
-    border: none; /* Elimina el borde predeterminado */
-    margin: 1em auto; /* Auto en los márgenes izquierdo y derecho lo centra */
+    width: 6em; 
+    height: 5px; 
+    background-color: white; 
+    border: none; 
+    margin: 1em auto; 
+}
+
+
+
+
+
+
+@media (max-width: 768px) {
+    .Registro {
+        background-color: rgba(3, 70, 250, 0.9); /* Fondo semitransparente */
+        padding: 2em;
+        border-radius: 10px; 
+        z-index: 1; 
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-49%, -49%);
+    
+    }
+
+    .contenedor_imagen {
+        height: 100vh;
+        width: 100%;
+    }
+
+    .logeo section {
+        text-align: center;
+        margin-top: 2em;
+    }
+
+    .titulo_Gestion {
+        margin-top: 1em;
+    }
+
 }

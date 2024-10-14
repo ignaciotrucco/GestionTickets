@@ -120,7 +120,8 @@ function EditarSistema() {
         url: '../../TiposSistema/GuardarTipoSistema',
         // la información a enviar
         // (también es posible utilizar una cadena de datos)
-        data: { TipoSistemaID: sistemaEditarID, Nombre: nombreEditar },
+        data: { TipoSistemaID: sistemaEditarID,
+             Nombre: nombreEditar },
         // especifica si será una petición POST o GET
         type: 'POST',
         // el tipo de información que se espera de respuesta
