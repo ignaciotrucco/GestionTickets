@@ -47,7 +47,7 @@ public class HomeController : Controller
 
     public IActionResult TareaCompleta(int id)
     {
-        var tipoSistemas = _context.TipoSistemas.ToList();
+        var tipoSistemas = _context.TipoSistemas.Where(t => t.Eliminado == false).ToList();
         tipoSistemas.Add(new TipoSistema { TipoSistemaID = 0, Nombre = "[Seleccione...]" });
         ViewBag.TipoSistema = new SelectList(tipoSistemas.OrderBy(t => t.Nombre), "TipoSistemaID", "Nombre");
 
@@ -212,7 +212,7 @@ public class HomeController : Controller
 
         // Obtenemos todos los tipos de tareas, subtareas y tipos de sistemas
         var tipotarea = _context.TipoTareas.ToList();
-        var subTareas = _context.SubTareas.ToList();
+        var subTareas = _context.SubTareas.Where(s => !s.Estado).ToList();
         var tipoSistemas = _context.TipoSistemas.ToList();
 
 

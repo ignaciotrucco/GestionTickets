@@ -75,5 +75,50 @@ public class TareaController : Controller
         }
         return Json(tareasMostrar);
     }
+
+    public JsonResult ObtenerSubTareas(int TareaID)
+    {
+        var subtareas = _context.SubTareas.Where(s => s.TareaID == TareaID && !s.Estado && !s.Eliminado).ToList();
+
+        //SI NO TIENE SUBTAREAS ASIGNADAS SE MARCA LA TAREA COMO TRUE 
+        if (!subtareas.Any())
+        {
+            var tarea = _context.Tareas.FirstOrDefault(t => t.TareaID == TareaID);
+            if (tarea != null)
+            {
+                tarea.Estado = true;
+                _context.SaveChanges();
+            }
+        }
+
+        return Json(subtareas);
+    }
+
+    public JsonResult FinalizarSubTareas(int TareaID, List<int> SubTareasFinalizadas)
+    {
+        var subtareas = _context.SubTareas.Where(s => SubTareasFinalizadas.Contains(s.SubTareaID)).ToList();
+
+        foreach (var subtarea in subtareas)
+        {
+            subtarea.Estado = true;
+        }
+        _context.SaveChanges();
+
+        //VERIFICAR SI TODAS LAS SUBTAREAS DE LA TAREA ESTAN FINALIZADAS
+        var tareaCompletada = _context.SubTareas.Where(t => t.TareaID == TareaID && !t.Eliminado).All(t => t.Estado == true);
+
+        if (tareaCompletada)
+        {
+            var tarea = _context.Tareas.Where(t => t.TareaID == TareaID).SingleOrDefault();
+
+            if (tarea != null)
+            {
+                tarea.Estado = true;
+                _context.SaveChanges();
+            }
+        }
+
+        return Json(new { tareaCompletada });
+    }
 }
 

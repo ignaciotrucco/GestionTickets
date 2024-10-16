@@ -30,6 +30,9 @@ function ListadoTarea() {
                                 <button class="btn-sm btn-outline-primary tamaño_boton" onclick="DetalleTarea(${tarea.tareaID})">
                                     Detalle
                                 </button>
+                                <button class="btn-sm btn-outline-primary tamaño_boton" onclick="completarTarea(${tarea.tareaID})">
+                                    Completar
+                                </button>
                             </div>
                         </div>
                     </div>`;
@@ -76,7 +79,7 @@ function DetalleTarea(tareaId) {
                         <p><b>Fecha de Inicio:</b> ${detalle.fechaIniciostring || '----'}</p>
                         <p><b>Tiempo Estimado:</b> ${detalle.tiempoEstimado ? detalle.tiempoEstimado + 'hs' : '----'}</p>
                         <p><b>Observaciones:</b> ${detalle.observaciones || '----'}</p>
-                        <h6><b>Sub Tareas:</b></h6>
+                        <h6><b>Pendiente:</b></h6>
                         `;
 
                 $.each(detalle.subtareas, function (index, subtarea) {
@@ -97,4 +100,89 @@ function DetalleTarea(tareaId) {
             alert("Error al cargar los detalles de la tarea.");
         }
     });
+}
+
+function completarTarea(tareaID) {
+    
+    $("#subTareasList").empty();
+
+    $.ajax({
+        url: '../../Tarea/ObtenerSubTareas', 
+        type: 'GET',
+        data: { TareaID: tareaID },
+        success: function (subTareas) {
+            
+            if (subTareas.length === 0) {
+                alert('Todas las subtareas ya están finalizadas.');
+                return ListadoTarea();
+            }
+
+            let contenidoSubTareas = ``;
+
+            $.each(subTareas, function (index, subTarea) {
+                contenidoSubTareas += `
+                <ul class="list-group">
+                    <li class="list-group-item mb-1">
+                        <input type="checkbox" class="form-check-input finalizarSubTarea" data-id="${subTarea.subTareaID}">
+                        <label class="form-check-label">${subTarea.descripcion}</label>
+                    </li>
+                </ul>    
+                `;
+            });
+
+            //INSERTAR CONTENIDO EN EL MODAL
+            $('#subTareasList').html(contenidoSubTareas);
+
+            //GUARDAR EL ID DE LA TAREA EN EL BOTON DE FINALIZAR
+            $('#finalizarTareaBtn').attr('data-tarea-id', tareaID);
+
+            //ABRIR EL MODAL
+            $('#completarTareaModal').modal('show');
+        },
+        error: function () {
+            alert('Error al cargar las subtareas.');
+        }
+    });
+}
+
+function FinalizarTarea() {
+    let tareaID = $('#finalizarTareaBtn').data('tarea-id');
+    let subTareasFinalizadas = [];
+
+    //RECOPILAR LAS SUBTAREAS MARCADAS EN EL CHECKBOX
+    $('.finalizarSubTarea:checked').each(function () {
+        subTareasFinalizadas.push($(this).data('id'));
+    });
+
+    console.log(subTareasFinalizadas)
+
+    if (subTareasFinalizadas.length === 0) {
+        alert('Por favor, selecciona al menos una subtarea para finalizar.');
+        return;
+    }
+
+    $.ajax({
+        url: '../../Tarea/FinalizarSubTareas', 
+        type: 'POST',
+        data: {
+            TareaID: tareaID,
+            SubTareasFinalizadas: subTareasFinalizadas
+        },
+        success: function (response) {
+            if (response.tareaCompletada) {
+                alert('Tarea completada');
+                $('#completarTareaModal').modal('hide');
+            } 
+            else {
+                alert('Subtareas finalizadas, pero la tarea no se ha completado todavía.');
+                $('#completarTareaModal').modal('hide');
+            }
+
+            ListadoTarea();
+        },
+        error: function () {
+            alert('Error al finalizar las subtareas.');
+        }
+    });
+
 }
