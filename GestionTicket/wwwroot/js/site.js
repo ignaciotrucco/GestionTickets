@@ -34,16 +34,24 @@ function crearTarea() {
         data: { tituloTarea, tipoTarea, userId },
         type: 'POST',
         dataType: 'json',
-        success: function (result) {
-            $('#ModalCrearTarea').modal('hide');
-            vaciarCampos();
+        success: function (nuevaTareaId) {
 
-            location.replace(result.urlCompleta);
+            console.log(nuevaTareaId)
+
+            if (nuevaTareaId == 0) {
+                alert("error al cargar la pagina");
+            }
+            else {
+                $('#ModalCrearTarea').modal('hide');
+                vaciarCampos();
+
+                location.href = `/Home/TareaCompleta/${nuevaTareaId}`;
+            }
         },
         error: function (xrs, status) {
             console.log('Ocurrió un error a la hora de almacenar la tarea.')
         }
-    })
+    });
 }
 
 function vaciarCampos() {

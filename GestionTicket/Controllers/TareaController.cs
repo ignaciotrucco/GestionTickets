@@ -87,6 +87,7 @@ public class TareaController : Controller
             if (tarea != null)
             {
                 tarea.Estado = true;
+                tarea.FechaCierre = DateTime.Now;
                 _context.SaveChanges();
             }
         }
@@ -114,6 +115,7 @@ public class TareaController : Controller
             if (tarea != null)
             {
                 tarea.Estado = true;
+                tarea.FechaCierre = DateTime.Now;
                 _context.SaveChanges();
             }
         }

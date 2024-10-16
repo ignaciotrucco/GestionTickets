@@ -131,13 +131,7 @@ public class HomeController : Controller
             _context.Tareas.Add(nuevaTarea);
             _context.SaveChanges();
 
-            // Aquí recuperamos el ID de la tarea recién creada
-            int tareaId = nuevaTarea.TareaID;
-
-            // Creo url para ir a completar la tarea.
-            string urlCompleta = Url.Action("TareaCompleta", "Home", new { id = tareaId });
-
-            return Json(new { success = true, urlCompleta });
+            return Json(nuevaTarea.TareaID);
         }
     }
 
@@ -241,7 +235,7 @@ public class HomeController : Controller
                 // SubTareaID = subtarea.SubTareaID,
                 FechaInicio = detalletarea.FechaInicio,
                 FechaIniciostring = detalletarea.FechaInicio.HasValue
-                ? detalletarea.FechaInicio.Value.ToString("dd/MM/yyyy")
+                ? detalletarea.FechaInicio.Value.ToString("dd/MM/yyyy - HH:mm")
                 : string.Empty,
                 TiempoEstimado = detalletarea.TiempoEstimado,
                 Observaciones = detalletarea.Observaciones,
