@@ -10,6 +10,7 @@ public class Tarea
     public int? TipoSistemaID { get; set; }
     public string? UsuarioID { get; set; }
     public DateTime? FechaInicio { get; set; }
+    public DateTime? FechaCierre {get; set;}
     public decimal? TiempoEstimado { get; set; }
     public string? Observaciones { get; set; }
     public bool? Eliminado { get; set; }
