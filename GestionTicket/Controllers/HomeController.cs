@@ -38,6 +38,11 @@ public class HomeController : Controller
             TareaSimple = true
         });
         ViewBag.TipoTarea = new SelectList(tiposTareas.OrderBy(t => t.Nombre), "TipoTareaID", "Nombre");
+        ViewBag.TipoTareaEditar = new SelectList(tiposTareas.OrderBy(t => t.Nombre), "TipoTareaID", "Nombre");
+
+        var tipoSistemas = _context.TipoSistemas.Where(t => t.Eliminado == false).ToList();
+        tipoSistemas.Add(new TipoSistema { TipoSistemaID = 0, Nombre = "[Seleccione...]" });
+        ViewBag.TipoSistemaEditar = new SelectList(tipoSistemas.OrderBy(t => t.Nombre), "TipoSistemaID", "Nombre");
 
         var userId = _userManager.GetUserId(User);
         ViewBag.UsuarioId = userId;
@@ -61,7 +66,12 @@ public class HomeController : Controller
 
         List<VistaTipoTarea> tareasMostrar = new List<VistaTipoTarea>();
 
-        var tareas = _context.Tareas.Where(e => e.Estado == false).ToList();
+        var tareas = _context.Tareas.Include(t => t.TipoTarea).Include(t => t.TipoSistema).Where(e => e.Estado == false).ToList();
+
+        if (id != null)
+        {
+            tareas = tareas.Where(t => t.TareaID == id).ToList();
+        }
 
         var tipotarea = _context.TipoTareas.ToList();
 
@@ -88,7 +98,7 @@ public class HomeController : Controller
                     tareasMostrar.Add(vistaTipoTarea);
                 }
 
-                
+
                 var nuevaTarea = new VistaTarea
                 {
                     TareaID = tarea.TareaID,
@@ -218,7 +228,8 @@ public class HomeController : Controller
             var tiposistemas = tipoSistemas.SingleOrDefault(t => t.TipoSistemaID == detalletarea.TipoSistemaID);
 
 
-            var vistaSubTareas = subtareas.Select(s => new VistaSubTareas {
+            var vistaSubTareas = subtareas.Select(s => new VistaSubTareas
+            {
                 SubTareaID = s.SubTareaID,
                 Descripcion = s.Descripcion,
             }).ToList();
@@ -252,6 +263,34 @@ public class HomeController : Controller
         }
 
         return Json(detalleTareasMostrar);
+    }
+
+    public JsonResult EditarTarea(int TareaID, int TipoTareaID, string TituloTarea, int TipoSistemaID, DateTime FechaInicio, decimal TiempoEstimado, string Observaciones)
+    {
+        string resultado = "";
+        TituloTarea = TituloTarea.ToUpper();
+
+        if (TareaID != 0)
+        {
+            var editarTarea = _context.Tareas.Where(e => e.TareaID == TareaID).SingleOrDefault();
+
+            if (editarTarea != null)
+            {
+                editarTarea.TipoTareaID = TipoTareaID;
+                editarTarea.TituloTarea = TituloTarea;
+                editarTarea.TipoSistemaID = TipoSistemaID;
+                editarTarea.FechaInicio = FechaInicio;
+                editarTarea.TiempoEstimado = TiempoEstimado;
+                editarTarea.Observaciones = Observaciones;
+
+
+                editarTarea.Estado = false;
+                _context.SaveChanges();
+                resultado = "¡Tarea editada!";
+            }
+        }
+
+        return Json(resultado);
     }
 
 

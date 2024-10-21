@@ -6,6 +6,8 @@ function ListadoTarea() {
         type: 'POST',
         dataType: 'json',
         success: function (tareasMostrar) {
+            $("#ModalEditar").modal("hide");
+
             let contenidoCards = `<div class="row justify-content-center">`;
 
             $.each(tareasMostrar, function (index, tipoTarea) {
@@ -20,22 +22,32 @@ function ListadoTarea() {
                             <div class="card-body">
                                 <div class="row">
             `;
-            
+
                 $.each(tipoTarea.listadoDelasTareas, function (index, tarea) {
                     contenidoCards += `
                     <div class="col-12 mb-2">  
                         <div class="card">
-                            <div class="d-flex justify-content-between align-items-center p-2 text-dark">
-                                <span>${tarea.tituloTarea}</span>
-                                <button class="btn-sm btn-outline-primary tamaño_boton" onclick="DetalleTarea(${tarea.tareaID})">
-                                    Detalle
-                                </button>
-                                <button class="btn-sm btn-outline-primary tamaño_boton" onclick="completarTarea(${tarea.tareaID})">
-                                    Completar
-                                </button>
-                            </div>
+                            <table class="m-2">
+                                <tbody>
+                                    <tr>
+                                        <td style="width: 60%; vertical-align: middle;">${tarea.tituloTarea}</td>
+                                        <td style="width: 40%; text-align: right;">
+                                            <button title="Editar" class="btn-sm btn-outline-primary tamaño_boton" onclick="AbrirModalEditar(${tarea.tareaID})">
+                                                <i class="fa-solid fa-pen-to-square"></i>
+                                            </button>
+                                            <button title="Detalle" class="btn-sm btn-outline-primary tamaño_boton" onclick="DetalleTarea(${tarea.tareaID})">
+                                                <i class="fa-solid fa-magnifying-glass"></i>
+                                            </button>
+                                            <button title="Completar" class="btn-sm btn-outline-primary tamaño_boton" onclick="completarTarea(${tarea.tareaID})">
+                                                <i class="fa-solid fa-check"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
-                    </div>`;
+                    </div>
+                    `;
                 });
 
                 contenidoCards += `
@@ -103,15 +115,15 @@ function DetalleTarea(tareaId) {
 }
 
 function completarTarea(tareaID) {
-    
+
     $("#subTareasList").empty();
 
     $.ajax({
-        url: '../../Tarea/ObtenerSubTareas', 
+        url: '../../Tarea/ObtenerSubTareas',
         type: 'GET',
         data: { TareaID: tareaID },
         success: function (subTareas) {
-            
+
             if (subTareas.length === 0) {
                 alert('Todas las subtareas ya están finalizadas.');
                 return ListadoTarea();
@@ -162,7 +174,7 @@ function FinalizarTarea() {
     }
 
     $.ajax({
-        url: '../../Tarea/FinalizarSubTareas', 
+        url: '../../Tarea/FinalizarSubTareas',
         type: 'POST',
         data: {
             TareaID: tareaID,
@@ -172,7 +184,7 @@ function FinalizarTarea() {
             if (response.tareaCompletada) {
                 alert('Tarea completada');
                 $('#completarTareaModal').modal('hide');
-            } 
+            }
             else {
                 alert('Subtareas finalizadas, pero la tarea no se ha completado todavía.');
                 $('#completarTareaModal').modal('hide');

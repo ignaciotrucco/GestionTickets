@@ -99,6 +99,44 @@
   </div>
 </div>
 
+<!-- Modal Editar -->
+<div class="modal fade" id="ModalEditar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Editar Tarea</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" id="TareaIDEditar">
+
+        <label for="validationServer02" class="form-label">Título</label>
+        <input type="text" class="form-control" id="TituloTareaEditar" style="text-transform: uppercase;">
+
+        <label for="validationServer01" class="form-label">Tipo Tarea</label>
+        @Html.DropDownList("TipoTareaEditar", null, htmlAttributes: new { @class = "form-control" })
+
+        <label for="validationServer01" class="form-label">Sistema</label>
+        @Html.DropDownList("TipoSistemaEditar", null, htmlAttributes: new { @class = "form-control" })
+
+        <label for="validationServer02" class="form-label">Inicio</label>
+        <input type="datetime-local" class="form-control" id="FechaInicioEditar">
+
+        <label for="validationServer02" class="form-label">Hs. Estimadas</label>
+        <input type="number" class="form-control" id="TiempoEstimadoEditar">
+
+        <label for="validationServer01" class="form-label">Observaciones</label>
+        <textarea id="ObservacionesEditar" class="form-control"></textarea>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" onclick="EditarTarea()">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 @section Scripts {
   <script src="~/js/Tareas.js"></script>

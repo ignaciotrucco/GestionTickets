@@ -63,7 +63,7 @@ function vaciarCampos() {
     document.getElementById('TipoTareaError').style.display = 'none';
 }
 
-function EditarTarea() {
+function CompletarTarea() {
     $("#TipoSistemaError").text("");
     $("#FechaInicioError").text("");
     $("#TiempoEstimadoError").text("");
@@ -158,44 +158,59 @@ $(document).ready(function () {
     }
 });
 
-    // document.addEventListener('DOMContentLoaded', function () {
+function AbrirModalEditar(tareaID) {
+    $.ajax({
+        url: '../../Home/DetalleTarea',
+        data: {tareaId: tareaID},
+        type: 'POST',
+        dataType: 'json',
+        success: function (tareasMostrar) {
+        let tareaMostrar = tareasMostrar[0];
 
-    //     const tipoTarea = document.getElementById('TipoTarea').value.toLowerCase();
+        $("#TareaIDEditar").val(tareaID);
+        $("#TituloTareaEditar").val(tareaMostrar.tituloTarea);
+        $("#TipoTareaEditar").val(tareaMostrar.tipoTareaID);
+        $("#TipoSistemaEditar").val(tareaMostrar.tipoSistemaID);
+        $("#FechaInicioEditar").val(tareaMostrar.fechaInicio);
+        $("#TiempoEstimadoEditar").val(tareaMostrar.tiempoEstimado);
+        $("#ObservacionesEditar").val(tareaMostrar.observaciones);
 
-        
-    //     const tipoSistemaContainer = document.getElementById("tipoSistemaContainer");
-    //     const fechaContainer = document.getElementById("fechaContainer");
-    //     const estimadoContainer = document.getElementById("estimadoContainer");
-    //     const observacionesContainer = document.getElementById("observacionesContainer");
+        $("#ModalEditar").modal("show");
 
-    //     // Función que maneja la visibilidad de los campos
-    //     function ajustarVisibilidad() {
-    //         if (tipoTarea === 'cobranza') {
-    //             estimadoContainer.style.display = 'none';
-    //             tipoSistemaContainer.style.display = 'none';
-    //         }
-    //         else if (tipoTarea === 'atención y capacitación') {
-    //             observacionesContainer.style.display = 'none';
-    //             estimadoContainer.style.display = 'none';
-    //         }
-    //         else if (tipoTarea === 'implementaciones') {
-    //             estimadoContainer.style.display = 'none';
-    //             observacionesContainer.style.display = 'none';
-    //         }
-    //         // } else if (tipoTarea === 'compleja') {
-    //         //     // Mostrar todos los campos si el tipo de tarea es 'compleja'
-    //         //     tipoSistemaContainer.style.display = 'block';
-    //         //     fechaTiempoContainer.style.display = 'block';
-    //         //     observacionesContainer.style.display = 'block';
-    //         // } else {
-    //         //     // Si es otro tipo de tarea, puedes ajustar más condiciones aquí
-    //         //     tipoSistemaContainer.style.display = 'block';
-    //         //     observacionesContainer.style.display = 'block';
-    //         // }
-    //     }
 
-    //     // Ejecutar la función al cargar la página
-    //     ajustarVisibilidad();
-    // });
+        },
+        error: function () {
+            alert('Disculpe, existió un problema al cargar las tareas.');
+        }
+    });
+}
+
+function EditarTarea() {
+
+    let tareaIDEditar = $("#TareaIDEditar").val();
+    let tituloEditar = $("#TituloTareaEditar").val();
+    let tipoTareaEditar = $("#TipoTareaEditar").val();
+    let tipoSistemaEditar = $("#TipoSistemaEditar").val();
+    let fechaInicioEditar = $("#FechaInicioEditar").val();
+    let tiempoEstimadoEditar = $("#TiempoEstimadoEditar").val();
+    let observacionesEditar = $("#ObservacionesEditar").val();
+
+    $.ajax({
+        url: '../../Home/EditarTarea',
+        data: { TareaID: tareaIDEditar, TipoTareaID: tipoTareaEditar, TituloTarea: tituloEditar, TipoSistemaID: tipoSistemaEditar, FechaInicio: fechaInicioEditar, TiempoEstimado: tiempoEstimadoEditar, Observaciones: observacionesEditar },
+        type: 'POST',
+        dataType: 'json',
+        success: function (resultado) {
+            if (resultado != "") {
+                Swal.fire(resultado);
+            }
+            ListadoTarea()
+        },
+        error: function (xrs, status) {
+            alert("Ocurrió un error a la hora de completar la tarea.");
+        }
+    });
+
+}
 
 
