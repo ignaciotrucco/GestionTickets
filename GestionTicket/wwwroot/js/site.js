@@ -113,12 +113,20 @@ function GuardarSubtarea(){
             if(resultado.success){
                 document.getElementById('Descripcion').value = '';
                 console.log(resultado.subtarea);
+                
+               
                 $('#listaSubTareas').append(`
-                    <div class="divSubtarea d-flex align-items-center justify-content-between">
+                    <div class="divSubtarea d-flex align-items-center justify-content-between" data-id="${resultado.subtarea.subTareaID}">
                         <span> ${resultado.subtarea.descripcion}</span>
-                        <button class="btn"><i class="fa-solid fa-xmark"></i></button>
+                        <button class="btn btn-remove"><i class="fa-solid fa-xmark"></i></button>
                     </div>
-                `)
+                `);
+
+        
+                $('.btn-remove').last().click(function() {
+                    var subTareaID = $(this).closest('.divSubtarea').data('id');
+                    EliminarSubtarea(subTareaID, $(this).closest('.divSubtarea'));
+                });
             }
         },
         error: function(xrs, status){
@@ -126,6 +134,40 @@ function GuardarSubtarea(){
         }
     })
 }
+
+function EliminarSubtarea(subTareaID, divSubtarea){
+    $.ajax({
+        url: '../../Home/EliminarSubtarea', 
+        data: { subTareaID: subTareaID },
+        type: 'POST',
+        datatype: 'json',
+        success: function(resultado){
+            if(resultado.success){
+             
+                divSubtarea.remove();
+                console.log('Subtarea eliminada correctamente.');
+            } else {
+                console.log('No se pudo eliminar la subtarea.');
+            }
+        },
+        error: function(xrs, status){
+            console.log('Se produjo un error a la hora de eliminar la subtarea.');
+        }
+    });
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //OCULTAR SUBTAREAS SI EL TIPO DE TAREA ES SIMPLE
 function mostrarOcultarSubtarea() {
