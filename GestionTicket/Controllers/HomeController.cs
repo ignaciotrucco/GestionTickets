@@ -199,7 +199,19 @@ public class HomeController : Controller
     }
 
 
+    public JsonResult EliminarSubtarea(int subTareaID)
+{
+    var subtareaEliminar = _context.SubTareas.Find(subTareaID);
+    
+    if (subtareaEliminar != null)
+    {
+        _context.SubTareas.Remove(subtareaEliminar);
+        _context.SaveChanges();
+        return Json(new { success = true });
+    }
 
+    return Json(new { success = false });
+}
 
 
 
