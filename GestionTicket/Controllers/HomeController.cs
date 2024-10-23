@@ -61,6 +61,11 @@ public class HomeController : Controller
         return View(tarea);
     }
 
+    public IActionResult HistorialTareas()
+    {
+        return View();
+    }
+
     public JsonResult ListadoTarea(int? id)
     {
 
@@ -118,6 +123,68 @@ public class HomeController : Controller
 
         }
         return Json(tareasMostrar);
+    }
+
+    public JsonResult DetalleTarea(int tareaId)
+    {
+
+        // primero creamo el listado que comienza en 0
+
+        List<VistaDetalleTarea> detalleTareasMostrar = new List<VistaDetalleTarea>();
+
+        // Obtenemos las tareas filtradas por el id 
+        var tareas = _context.Tareas.Where(t => t.TareaID == tareaId).ToList();
+
+
+        // Obtenemos todos los tipos de tareas, subtareas y tipos de sistemas
+        var tipotarea = _context.TipoTareas.ToList();
+        var subTareas = _context.SubTareas.Where(s => !s.Estado).ToList();
+        var tipoSistemas = _context.TipoSistemas.ToList();
+
+
+        foreach (var detalletarea in tareas)
+        {
+
+            var tipoTarea = tipotarea.SingleOrDefault(n => n.TipoTareaID == detalletarea.TipoTareaID);
+            var subtareas = subTareas.Where(s => s.TareaID == detalletarea.TareaID).ToList();
+            var tiposistemas = tipoSistemas.SingleOrDefault(t => t.TipoSistemaID == detalletarea.TipoSistemaID);
+
+
+            var vistaSubTareas = subtareas.Select(s => new VistaSubTareas
+            {
+                SubTareaID = s.SubTareaID,
+                Descripcion = s.Descripcion,
+            }).ToList();
+
+
+            var nuevoDetalleTarea = new VistaDetalleTarea
+            {
+                TareaID = detalletarea.TareaID,
+                TipoTareaID = detalletarea.TipoTareaID,
+                TituloTarea = detalletarea.TituloTarea,
+                TipoSistemaID = tiposistemas?.TipoSistemaID,
+                Nombretiposistema = tiposistemas?.Nombre,
+                UsuarioID = detalletarea.UsuarioID,
+                // SubTareaID = subtarea.SubTareaID,
+                FechaInicio = detalletarea.FechaInicio,
+                FechaIniciostring = detalletarea.FechaInicio.HasValue
+                ? detalletarea.FechaInicio.Value.ToString("dd/MM/yyyy - HH:mm")
+                : string.Empty,
+                TiempoEstimado = detalletarea.TiempoEstimado,
+                Observaciones = detalletarea.Observaciones,
+                Estado = detalletarea.Estado,
+                Nombretipotarea = tipoTarea?.Nombre,
+                Subtareas = vistaSubTareas
+                // Descripcion = subtarea.Descripcion,
+                // EliminadoSubtarea = subtarea.Eliminado
+            };
+
+
+            detalleTareasMostrar.Add(nuevoDetalleTarea);
+
+        }
+
+        return Json(detalleTareasMostrar);
     }
 
     public JsonResult CrearTarea(string tituloTarea, int tipoTarea, string userId)
@@ -191,90 +258,25 @@ public class HomeController : Controller
         return Json(new { success = false });
     }
 
+    public JsonResult EliminarSubtarea(int subTareaID)
+    {
+        var subtareaEliminar = _context.SubTareas.Find(subTareaID);
+
+        if (subtareaEliminar != null)
+        {
+            _context.SubTareas.Remove(subtareaEliminar);
+            _context.SaveChanges();
+            return Json(new { success = true });
+        }
+
+        return Json(new { success = false });
+    }
+
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-    }
-
-
-    public JsonResult EliminarSubtarea(int subTareaID)
-{
-    var subtareaEliminar = _context.SubTareas.Find(subTareaID);
-    
-    if (subtareaEliminar != null)
-    {
-        _context.SubTareas.Remove(subtareaEliminar);
-        _context.SaveChanges();
-        return Json(new { success = true });
-    }
-
-    return Json(new { success = false });
-}
-
-
-
-    public JsonResult DetalleTarea(int tareaId)
-    {
-
-        // primero creamo el listado que comienza en 0
-
-        List<VistaDetalleTarea> detalleTareasMostrar = new List<VistaDetalleTarea>();
-
-        // Obtenemos las tareas filtradas por el id 
-        var tareas = _context.Tareas.Where(t => t.TareaID == tareaId).ToList();
-
-
-        // Obtenemos todos los tipos de tareas, subtareas y tipos de sistemas
-        var tipotarea = _context.TipoTareas.ToList();
-        var subTareas = _context.SubTareas.Where(s => !s.Estado).ToList();
-        var tipoSistemas = _context.TipoSistemas.ToList();
-
-
-        foreach (var detalletarea in tareas)
-        {
-
-            var tipoTarea = tipotarea.SingleOrDefault(n => n.TipoTareaID == detalletarea.TipoTareaID);
-            var subtareas = subTareas.Where(s => s.TareaID == detalletarea.TareaID).ToList();
-            var tiposistemas = tipoSistemas.SingleOrDefault(t => t.TipoSistemaID == detalletarea.TipoSistemaID);
-
-
-            var vistaSubTareas = subtareas.Select(s => new VistaSubTareas
-            {
-                SubTareaID = s.SubTareaID,
-                Descripcion = s.Descripcion,
-            }).ToList();
-
-
-            var nuevoDetalleTarea = new VistaDetalleTarea
-            {
-                TareaID = detalletarea.TareaID,
-                TipoTareaID = detalletarea.TipoTareaID,
-                TituloTarea = detalletarea.TituloTarea,
-                TipoSistemaID = tiposistemas?.TipoSistemaID,
-                Nombretiposistema = tiposistemas?.Nombre,
-                UsuarioID = detalletarea.UsuarioID,
-                // SubTareaID = subtarea.SubTareaID,
-                FechaInicio = detalletarea.FechaInicio,
-                FechaIniciostring = detalletarea.FechaInicio.HasValue
-                ? detalletarea.FechaInicio.Value.ToString("dd/MM/yyyy - HH:mm")
-                : string.Empty,
-                TiempoEstimado = detalletarea.TiempoEstimado,
-                Observaciones = detalletarea.Observaciones,
-                Estado = detalletarea.Estado,
-                Nombretipotarea = tipoTarea?.Nombre,
-                Subtareas = vistaSubTareas
-                // Descripcion = subtarea.Descripcion,
-                // EliminadoSubtarea = subtarea.Eliminado
-            };
-
-
-            detalleTareasMostrar.Add(nuevoDetalleTarea);
-
-        }
-
-        return Json(detalleTareasMostrar);
     }
 
     public JsonResult EditarTarea(int TareaID, int TipoTareaID, string TituloTarea, int TipoSistemaID, DateTime FechaInicio, decimal TiempoEstimado, string Observaciones)
@@ -305,6 +307,110 @@ public class HomeController : Controller
         return Json(resultado);
     }
 
+    public JsonResult ObtenerSubTareas(int TareaID)
+    {
+        var subtareas = _context.SubTareas.Where(s => s.TareaID == TareaID && !s.Estado && !s.Eliminado).ToList();
+
+        //SI NO TIENE SUBTAREAS ASIGNADAS SE MARCA LA TAREA COMO TRUE 
+        if (!subtareas.Any())
+        {
+            var tarea = _context.Tareas.FirstOrDefault(t => t.TareaID == TareaID);
+            if (tarea != null)
+            {
+                tarea.Estado = true;
+                tarea.FechaCierre = DateTime.Now;
+                _context.SaveChanges();
+            }
+        }
+
+        return Json(subtareas);
+    }
+
+    public JsonResult FinalizarSubTareas(int TareaID, List<int> SubTareasFinalizadas)
+    {
+        var subtareas = _context.SubTareas.Where(s => SubTareasFinalizadas.Contains(s.SubTareaID)).ToList();
+
+        foreach (var subtarea in subtareas)
+        {
+            subtarea.Estado = true;
+        }
+        _context.SaveChanges();
+
+        //VERIFICAR SI TODAS LAS SUBTAREAS DE LA TAREA ESTAN FINALIZADAS
+        var tareaCompletada = _context.SubTareas.Where(t => t.TareaID == TareaID && !t.Eliminado).All(t => t.Estado == true);
+
+        if (tareaCompletada)
+        {
+            var tarea = _context.Tareas.Where(t => t.TareaID == TareaID).SingleOrDefault();
+
+            if (tarea != null)
+            {
+                tarea.Estado = true;
+                tarea.FechaCierre = DateTime.Now;
+                _context.SaveChanges();
+            }
+        }
+
+        return Json(new { tareaCompletada });
+    }
+
+    public JsonResult ListadoHistorialTareas()
+    {
+        List<VistaTipoTarea> tareasMostrar = new List<VistaTipoTarea>();
+        var tareas = _context.Tareas.Include(t => t.TipoSistema).Include(t => t.TipoTarea).ToList();
+
+        foreach (var tarea in tareas)
+        {
+            var tipoTareaNostrar = tareasMostrar.SingleOrDefault(n => n.TipoTareaID == tarea.TipoTareaID);
+
+            if (tipoTareaNostrar == null)
+            {
+                tipoTareaNostrar = new VistaTipoTarea
+                {
+                    TipoTareaID = tarea.TipoTareaID,
+                    Nombretipotarea = tarea.TipoTarea.Nombre,
+                    VistaSistema = new List<VistaSistema>()
+                };
+                tareasMostrar.Add(tipoTareaNostrar);
+            }
+
+            var sistemaMostrar = tipoTareaNostrar.VistaSistema.Where(s => s.TipoSistemaID == tarea.TipoSistemaID).SingleOrDefault();
+
+            if (sistemaMostrar == null)
+            {
+                sistemaMostrar = new VistaSistema
+                {
+                    TipoSistemaID = tarea.TipoSistemaID,
+                    NombreSistema = tarea.TipoSistema.Nombre,
+                    ListadoDelasTareas = new List<VistaTarea>()
+                };
+                tipoTareaNostrar.VistaSistema.Add(sistemaMostrar);
+            }
+
+
+            var tareaMostrar = new VistaTarea
+            {
+                TareaID = tarea.TareaID,
+                TituloTarea = tarea.TituloTarea,
+                UsuarioID = tarea.UsuarioID,
+                FechaInicio = tarea.FechaInicio,
+                FechaIniciostring = tarea.FechaInicio.HasValue
+                ? tarea.FechaInicio.Value.ToString("dd/MM/yyyy - HH:mm")
+                : string.Empty,
+                FechaCierre = tarea.FechaCierre,
+                FechaCierrestring = tarea.FechaCierre.HasValue
+                ? tarea.FechaCierre.Value.ToString("dd/MM/yyyy - HH:mm")
+                : string.Empty,
+                TiempoEstimado = tarea.TiempoEstimado,
+                Observaciones = tarea.Observaciones,
+                Estado = tarea.Estado
+            };
+
+            sistemaMostrar.ListadoDelasTareas.Add(tareaMostrar);
+        }
+
+        return Json(tareasMostrar);
+    }
 
 }
 

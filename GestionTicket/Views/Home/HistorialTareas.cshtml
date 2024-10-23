@@ -1,0 +1,64 @@
+@{
+  ViewData["Title"] = "Historial Tareas";
+}
+
+<div class="card">
+  <div class="card-body">
+    Filtros
+  </div>
+</div>
+
+<div class="card mt-2">
+  <div class="card-header">
+    <h4>Historial de Tareas</h4>
+  </div>
+  <div class="card-body">
+    <div class="table-responsive" style="max-height: 80vh; overflow-y: auto;">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Tipo de Tarea</th>
+            <th scope="col">Sistema</th>
+            <th scope="col">Título</th>
+            <th scope="col">Usuario</th>
+            <th scope="col">Inicio</th>
+            <th scope="col">Cierre</th>
+            <th scope="col">Estimado</th>
+            <th scope="col">Observaciones</th>
+            <th scope="col">Finalizada</th>
+          </tr>
+        </thead>
+        <tbody id="historialTareas">
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+@* <div>
+<h1 class="text-center my-4">Todas las tareas del sistema </h1>
+<div id="TareaContainer"</div>
+</div>
+</div>
+
+
+<div class="modal fade" id="DetalleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<h1 class="modal-title fs-5" id="exampleModalLabel">Detalles de la Tarea</h1>
+<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
+<div class="modal-body">
+<div id="Detalle" class="card-container"></div> <!-- Aquí se mostrarán las tarjetas dinámicamente -->
+</div>
+</div>
+</div>
+</div> *@
+
+
+
+@section Scripts {
+  <script src="~/js/historialTareas.js"></script>
+}
