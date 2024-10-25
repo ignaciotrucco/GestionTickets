@@ -1,8 +1,17 @@
 window.onload = ListadoTodasTareas;
 
 function ListadoTodasTareas() {
+
+    let tipoSistemaBuscarID  = $("#TipoSistemaBuscarID").val();
+    let tipoTareaBuscarID = $("#TipoTareaBuscarID").val();
     $.ajax({
         url: '../../Home/ListadoHistorialTareas',
+
+    data:{
+        TipoSistemaBuscarID :tipoSistemaBuscarID,
+        TipoTareaBuscarID :tipoTareaBuscarID,
+
+    },
         type: 'POST',
         dataType: 'json',
         success: function (tareasMostrar) {

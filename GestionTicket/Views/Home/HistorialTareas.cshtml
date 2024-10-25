@@ -3,9 +3,29 @@
 }
 
 <div class="card">
-  <div class="card-body">
+  <div class="card-body row">
     Filtros
-  </div>
+
+
+
+<div class="mb-3 col-4">
+    <label for="TipoTareaID" class="form-label texto-input">Tipo Tarea</label>
+        @Html.DropDownList("TipoTareaBuscarID", null, htmlAttributes:
+         new { @class = "form-control",
+         @onchange = "ListadoTodasTareas()"
+         
+          })
+ </div>
+
+ <div class="mb-3 col-4">
+    <label for="TipoSistemaID" class="form-label texto-input"> Sistema</label>
+        @Html.DropDownList("TipoSistemaBuscarID", null, htmlAttributes:
+         new { @class = "form-control",
+         @onchange = "ListadoTodasTareas()"
+         
+          })
+ </div>
+
 </div>
 
 <div class="card mt-2">

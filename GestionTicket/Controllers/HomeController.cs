@@ -30,6 +30,9 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
+
+
+        
         var tiposTareas = _context.TipoTareas.Where(t => t.Eliminado == false).ToList();
         tiposTareas.Add(new TipoTarea
         {
@@ -44,6 +47,15 @@ public class HomeController : Controller
         tipoSistemas.Add(new TipoSistema { TipoSistemaID = 0, Nombre = "[Seleccione...]" });
         ViewBag.TipoSistemaEditar = new SelectList(tipoSistemas.OrderBy(t => t.Nombre), "TipoSistemaID", "Nombre");
 
+
+
+ // Añadir la opción de búsqueda
+    tipoSistemas.Add(new TipoSistema { TipoSistemaID = 0, Nombre = "[ Buscar]" });
+    
+    // Asignar la lista al ViewBag
+    ViewBag.TipoSistemaBuscarID = new SelectList(tipoSistemas.OrderBy(c => c.Nombre), "TipoSistemaID", "Nombre");
+
+    
         var userId = _userManager.GetUserId(User);
         ViewBag.UsuarioId = userId;
 
@@ -62,7 +74,15 @@ public class HomeController : Controller
     }
 
     public IActionResult HistorialTareas()
-    {
+    {   var tipoSistemas = _context.TipoSistemas.Where(t => t.Eliminado == false).ToList();
+         tipoSistemas.Add(new TipoSistema { TipoSistemaID = 0, Nombre = "[ Buscar]" });
+    ViewBag.TipoSistemaBuscarID = new SelectList(tipoSistemas.OrderBy(c => c.Nombre), "TipoSistemaID", "Nombre");
+
+
+var tipotareas = _context.TipoTareas.Where(t => t.Eliminado == false).ToList();
+    tipotareas.Add(new TipoTarea { TipoTareaID = 0, Nombre = "[ Buscar]" });
+    ViewBag.TipoTareaBuscarID = new SelectList(tipotareas.OrderBy(c => c.Nombre), "TipoTareaID", "Nombre");
+
         return View();
     }
 
@@ -71,8 +91,15 @@ public class HomeController : Controller
 
         List<VistaTipoTarea> tareasMostrar = new List<VistaTipoTarea>();
 
-        var tareas = _context.Tareas.Include(t => t.TipoTarea).Include(t => t.TipoSistema).Where(e => e.Estado == false).ToList();
 
+var userId = _userManager.GetUserId(User);
+
+   
+    var tareas = _context.Tareas
+        .Include(t => t.TipoTarea)
+        .Include(t => t.TipoSistema)
+        .Where(e => e.Estado == false && e.UsuarioID == userId)
+        .ToList();
         if (id != null)
         {
             tareas = tareas.Where(t => t.TareaID == id).ToList();
@@ -354,68 +381,94 @@ public class HomeController : Controller
         return Json(new { tareaCompletada });
     }
 
-    public JsonResult ListadoHistorialTareas()
-    {
-        List<VistaTipoTarea> tareasMostrar = new List<VistaTipoTarea>();
-        var tareas = _context.Tareas.Include(t => t.TipoSistema).Include(t => t.TipoTarea).ToList();
+public JsonResult ListadoHistorialTareas(int? TipoTareaBuscarID, int? TipoSistemaBuscarID)
+{
+    List<VistaTipoTarea> tareasMostrar = new List<VistaTipoTarea>();
+    var tareas = _context.Tareas
+        .Include(t => t.TipoSistema)
+        .Include(t => t.TipoTarea)
+        .ToList();
 
-        foreach (var tarea in tareas)
-        {
-            var tipoTareaNostrar = tareasMostrar.SingleOrDefault(n => n.TipoTareaID == tarea.TipoTareaID);
-
-            if (tipoTareaNostrar == null)
-            {
-                tipoTareaNostrar = new VistaTipoTarea
-                {
-                    TipoTareaID = tarea.TipoTareaID,
-                    Nombretipotarea = tarea.TipoTarea.Nombre,
-                    VistaSistema = new List<VistaSistema>()
-                };
-                tareasMostrar.Add(tipoTareaNostrar);
-            }
-
-            var sistemaMostrar = tipoTareaNostrar.VistaSistema.Where(s => s.TipoSistemaID == tarea.TipoSistemaID).SingleOrDefault();
-
-            if (sistemaMostrar == null)
-            {
-                sistemaMostrar = new VistaSistema
-                {
-                    TipoSistemaID = tarea.TipoSistemaID,
-                    NombreSistema = tarea.TipoSistema.Nombre,
-                    ListadoDelasTareas = new List<VistaTarea>()
-                };
-                tipoTareaNostrar.VistaSistema.Add(sistemaMostrar);
-            }
+        if (TipoTareaBuscarID !=null  && TipoTareaBuscarID !=0)
+{
+    tareas = tareas.Where(t => t.TipoTareaID == TipoTareaBuscarID).ToList();
+}
 
 
-            var tareaMostrar = new VistaTarea
-            {
-                TareaID = tarea.TareaID,
-                TituloTarea = tarea.TituloTarea,
-                UsuarioID = tarea.UsuarioID,
-                FechaInicio = tarea.FechaInicio,
-                FechaIniciostring = tarea.FechaInicio.HasValue
-                ? tarea.FechaInicio.Value.ToString("dd/MM/yyyy - HH:mm")
-                : string.Empty,
-                FechaCierre = tarea.FechaCierre,
-                FechaCierrestring = tarea.FechaCierre.HasValue
-                ? tarea.FechaCierre.Value.ToString("dd/MM/yyyy - HH:mm")
-                : string.Empty,
-                TiempoEstimado = tarea.TiempoEstimado,
-                Observaciones = tarea.Observaciones,
-                Estado = tarea.Estado
-            };
-
-            sistemaMostrar.ListadoDelasTareas.Add(tareaMostrar);
-        }
-
-        return Json(tareasMostrar);
-    }
-
+        if (TipoSistemaBuscarID !=null  && TipoSistemaBuscarID !=0)
+{
+    tareas = tareas.Where(t => t.TipoSistemaID == TipoSistemaBuscarID).ToList();
 }
 
 
 
+
+    foreach (var tarea in tareas)
+    {
+        
+        if (tarea.TipoTarea == null || tarea.TipoSistema == null)
+        {
+            continue; 
+        }
+
+        var tipoTareaNostrar = tareasMostrar.SingleOrDefault(n => n.TipoTareaID == tarea.TipoTareaID);
+
+        if (tipoTareaNostrar == null)
+        {
+            tipoTareaNostrar = new VistaTipoTarea
+            {
+                TipoTareaID = tarea.TipoTareaID,
+                Nombretipotarea = tarea.TipoTarea.Nombre,
+                VistaSistema = new List<VistaSistema>()
+            };
+            tareasMostrar.Add(tipoTareaNostrar);
+        }
+
+        var sistemaMostrar = tipoTareaNostrar.VistaSistema
+            .SingleOrDefault(s => s.TipoSistemaID == tarea.TipoSistemaID);
+
+        if (sistemaMostrar == null)
+        {
+            sistemaMostrar = new VistaSistema
+            {
+                TipoSistemaID = tarea.TipoSistemaID,
+                NombreSistema = tarea.TipoSistema.Nombre,
+                ListadoDelasTareas = new List<VistaTarea>()
+            };
+            tipoTareaNostrar.VistaSistema.Add(sistemaMostrar);
+        }
+
+        var tareaMostrar = new VistaTarea
+        {
+            TareaID = tarea.TareaID,
+            TituloTarea = tarea.TituloTarea,
+            UsuarioID = tarea.UsuarioID,
+            FechaInicio = tarea.FechaInicio,
+            FechaIniciostring = tarea.FechaInicio.HasValue
+                ? tarea.FechaInicio.Value.ToString("dd/MM/yyyy - HH:mm")
+                : string.Empty,
+            FechaCierre = tarea.FechaCierre,
+            FechaCierrestring = tarea.FechaCierre.HasValue
+                ? tarea.FechaCierre.Value.ToString("dd/MM/yyyy - HH:mm")
+                : string.Empty,
+            TiempoEstimado = tarea.TiempoEstimado,
+            Observaciones = tarea.Observaciones,
+            Estado = tarea.Estado
+        };
+
+     
+        if (sistemaMostrar != null)
+        {
+            sistemaMostrar.ListadoDelasTareas.Add(tareaMostrar);
+        }
+    }
+
+    return Json(tareasMostrar);
+}
+
+
+
+}
 
 
 
