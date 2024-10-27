@@ -4,13 +4,21 @@ function ListadoTodasTareas() {
 
     let tipoSistemaBuscarID  = $("#TipoSistemaBuscarID").val();
     let tipoTareaBuscarID = $("#TipoTareaBuscarID").val();
+    let fechaDesde = $("#fechaDesdeBuscar").val();
+    let fechaHasta = $("#fechaHastaBuscar").val();
+    let todas = document.getElementById("todasTareas").checked;
+    let finalizadas = document.getElementById("tareasFinalizadas").checked;
+    
     $.ajax({
         url: '../../Home/ListadoHistorialTareas',
 
     data:{
         TipoSistemaBuscarID :tipoSistemaBuscarID,
         TipoTareaBuscarID :tipoTareaBuscarID,
-
+        FechaDesde: fechaDesde,
+        FechaHasta: fechaHasta,
+        Todas: todas,
+        Finalizadas: finalizadas
     },
         type: 'POST',
         dataType: 'json',
@@ -39,15 +47,24 @@ function ListadoTodasTareas() {
 
                     $.each(sistema.listadoDelasTareas, function (index, tarea) {
 
+                        let tareaFinalizada = '';
+                        if (tarea.estado == true) {
+                            tareaFinalizada = '<i class="fa-solid fa-check"></i>';
+                        }
+                        else {
+                            tareaFinalizada = '<i class="fa-solid fa-x"></i>';
+                        }
+
                         tabla += `
                         <tr>
                             <td colspan="2"></td>
                             <td>${tarea.tituloTarea}</td>
-                            <td>${tarea.usuarioID}</td>
+                            <td>${tarea.emailUsuario}</td>
                             <td>${tarea.fechaIniciostring}</td>
                             <td>${tarea.fechaCierrestring || "----"}</td>
                             <td>${tarea.tiempoEstimado} hs</td>
                             <td>${tarea.observaciones || "----"}</td>
+                            <td class="text-center">${tareaFinalizada}</td>
                         </tr>
                     `;
 

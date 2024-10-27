@@ -4,28 +4,50 @@
 
 <div class="card">
   <div class="card-body row">
-    Filtros
 
+    <div class="mb-3 col-md-3">
+      <label for="TipoTareaID" class="form-label texto-input">Tipo Tarea</label>
+      @Html.DropDownList("TipoTareaBuscarID", null, htmlAttributes:
+             new
+             {
+               @class = "form-control",
+               @onchange = "ListadoTodasTareas()"
 
+             })
+    </div>
 
-<div class="mb-3 col-4">
-    <label for="TipoTareaID" class="form-label texto-input">Tipo Tarea</label>
-        @Html.DropDownList("TipoTareaBuscarID", null, htmlAttributes:
-         new { @class = "form-control",
-         @onchange = "ListadoTodasTareas()"
-         
-          })
- </div>
+    <div class="mb-3 col-md-3">
+      <label for="TipoSistemaID" class="form-label texto-input"> Sistema</label>
+      @Html.DropDownList("TipoSistemaBuscarID", null, htmlAttributes:
+             new
+             {
+               @class = "form-control",
+               @onchange = "ListadoTodasTareas()"
 
- <div class="mb-3 col-4">
-    <label for="TipoSistemaID" class="form-label texto-input"> Sistema</label>
-        @Html.DropDownList("TipoSistemaBuscarID", null, htmlAttributes:
-         new { @class = "form-control",
-         @onchange = "ListadoTodasTareas()"
-         
-          })
- </div>
+             })
+    </div>
+    <div class="mb-3 col-md-3">
+      <label for="fechaDesdeBuscar" class="form-label texto-input">Fecha Desde</label>
+      <input type="datetime-local" class="form-control" id="fechaDesdeBuscar" onchange="ListadoTodasTareas()">
+    </div>
+    <div class="mb-3 col-md-3">
+      <label for="fechaHastaBuscar" class="form-label texto-input">Fecha Hasta</label>
+      <input type="datetime-local" class="form-control" id="fechaHastaBuscar" onchange="ListadoTodasTareas()">
+    </div>
 
+    <div class="d-flex">
+      <div class="d-flex align-items-center me-3">
+        <input type="checkbox" class="form-check-input me-2" id="todasTareas" onchange="ListadoTodasTareas()">
+        <label for="todasTareas" class="form-check-label texto-input">Todas las tareas</label>
+      </div>
+
+      <div class="d-flex align-items-center">
+        <input type="checkbox" class="form-check-input me-2" id="tareasFinalizadas" onchange="ListadoTodasTareas()">
+        <label for="tareasFinalizadas" class="form-check-label texto-input">Finalizadas</label>
+      </div>
+    </div>
+
+  </div>
 </div>
 
 <div class="card mt-2">
